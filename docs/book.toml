@@ -1,0 +1,6 @@
+[book]
+title = "BitzArt.Blazor.State"
+
+[output.html]
+git-repository-url = "https://github.com/BitzArt/Blazor.State"
+git-repository-icon = "fa-github"
