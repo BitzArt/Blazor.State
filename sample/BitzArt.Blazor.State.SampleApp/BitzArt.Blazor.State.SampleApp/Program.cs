@@ -13,18 +13,16 @@ namespace BitzArt.Blazor.State.SampleApp
                 .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
 
+            builder.Services.AddBlazorState(state =>
+            {
+                state.AddAssemblyContaining<Client._Imports>();
+            });
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseWebAssemblyDebugging();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
+            app.UseDeveloperExceptionPage();
 
+            app.MapStaticAssets();
             app.UseStaticFiles();
             app.UseAntiforgery();
 

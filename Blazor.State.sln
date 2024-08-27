@@ -44,8 +44,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{853EC833-DEF
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State.SampleApp.Shared", "sample\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp.Shared\BitzArt.Blazor.State.SampleApp.Shared.csproj", "{721CEFF7-21B9-4DF8-8B58-A815AC19CA39}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,10 +66,6 @@ Global
 		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{721CEFF7-21B9-4DF8-8B58-A815AC19CA39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{721CEFF7-21B9-4DF8-8B58-A815AC19CA39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{721CEFF7-21B9-4DF8-8B58-A815AC19CA39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{721CEFF7-21B9-4DF8-8B58-A815AC19CA39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,7 +78,6 @@ Global
 		{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC} = {AF748271-0827-41E0-9ACC-F6B38227B85F}
 		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF} = {AF748271-0827-41E0-9ACC-F6B38227B85F}
 		{AF748271-0827-41E0-9ACC-F6B38227B85F} = {818B8950-B52B-49E9-B15B-196024C22A18}
-		{721CEFF7-21B9-4DF8-8B58-A815AC19CA39} = {AF748271-0827-41E0-9ACC-F6B38227B85F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {70901A76-781C-4DB7-A313-3E93BE0F665F}
