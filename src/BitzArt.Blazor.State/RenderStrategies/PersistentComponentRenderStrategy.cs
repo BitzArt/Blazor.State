@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System.Threading.Tasks;
 
 namespace BitzArt.Blazor.State;
 
@@ -8,6 +7,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
     : ComponentRenderStrategy(component)
 {
     internal bool StateInitialized;
+    internal PageStateContainer? StateContainer { get; set; }
 
     protected PersistentComponentBase PersistentComponent { get; private set; } = component;
     protected virtual bool ShouldWaitForRootStateRestore => true;
@@ -53,9 +53,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
     {
         if (StateInitialized) throw new InvalidOperationException("State has already been initialized for this component.");
 
-        // TODO: Probably needs a better way to determine
-        // whether the state should be restored or initialized
-        if (Handle.RendererInfo.IsInteractive)
+        if (StateContainer is not null && StateContainer.HasState)
         {
             await RestoreStateAsync();
         }
@@ -91,10 +89,6 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
 
     internal override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        // Wraps this component's contents in a CascadingValue
-        // to provide access to this component as a StateParent
-        // for all child components
-
         builder.OpenComponent(0, typeof(CascadingValue<PersistentComponentBase>));
 
         builder.AddAttribute(1, "Name", "StateParent");

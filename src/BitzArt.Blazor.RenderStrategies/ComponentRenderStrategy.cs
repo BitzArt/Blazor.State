@@ -61,7 +61,7 @@ internal class ComponentRenderStrategy
         Component.BuildRenderTreeInternal(builder);
     }
 
-    internal void Attach(RenderHandle renderHandle)
+    internal virtual void Attach(RenderHandle renderHandle)
     {
         // This implicitly means a ComponentBase can only be associated with a single
         // renderer. That's the only use case we have right now. If there was ever a need,

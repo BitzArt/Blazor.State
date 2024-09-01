@@ -13,6 +13,20 @@ public abstract class PersistentComponentBase : StrategyRenderedComponentBase
     [CascadingParameter(Name = "StateParent")]
     internal PersistentComponentBase? StateParent { get; set; }
 
+    private PageStateContainer? stateContainer;
+
+    [CascadingParameter]
+    internal PageStateContainer? StateContainer
+    {
+        get => stateContainer;
+        set
+        {
+            stateContainer = value;
+            PersistentRenderStrategy.StateContainer = value;
+            Console.WriteLine($"{GetType().Name}: StateContainer supplied");
+        }
+    }
+
     internal bool IsStateRoot = false;
 
     /// <summary>

@@ -20,8 +20,6 @@ namespace BitzArt.Blazor.State.SampleApp
 
             var app = builder.Build();
 
-            app.UseDeveloperExceptionPage();
-
             app.MapStaticAssets();
             app.UseStaticFiles();
             app.UseAntiforgery();
