@@ -35,7 +35,7 @@ internal static class PersistentComponentRenderStrategyFactory
         _initialized = true;
     }
 
-    internal static ComponentRenderStrategy CreateStrategy(PersistentComponent component)
+    internal static ComponentRenderStrategy CreateStrategy(PersistentComponentBase component)
     {
         if (!_initialized) throw new InvalidOperationException("PersistentComponentRenderStrategyFactory is not initialized.");
 

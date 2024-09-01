@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Security.Cryptography;
 
 namespace BitzArt.Blazor.State;
 
 /// <summary>
 /// Base class for persistent components.
 /// </summary>
-public abstract class PersistentComponent : StrategyRenderedComponent
+public abstract class PersistentComponentBase : StrategyRenderedComponentBase
 {
     [CascadingParameter(Name = "StateRoot")]
-    internal PersistentComponent? StateRoot { get; set; }
+    internal PersistentComponentBase? StateRoot { get; set; }
 
     [CascadingParameter(Name = "StateParent")]
-    internal PersistentComponent? StateParent { get; set; }
+    internal PersistentComponentBase? StateParent { get; set; }
 
     internal bool IsStateRoot = false;
 

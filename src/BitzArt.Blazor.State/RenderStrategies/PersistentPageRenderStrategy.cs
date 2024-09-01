@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BitzArt.Blazor.State;
 
-internal class PersistentPageRenderStrategy(PersistentComponent component)
+internal class PersistentPageRenderStrategy(PersistentComponentBase component)
     : PersistentComponentRenderStrategy(component)
 {
     protected override bool ShouldWaitForRootStateRestore => false;
@@ -17,7 +17,7 @@ internal class PersistentPageRenderStrategy(PersistentComponent component)
         PersistentComponent.StateRoot = PersistentComponent;
         PersistentComponent.IsStateRoot = true;
 
-        builder.OpenComponent(0, typeof(CascadingValue<PersistentComponent>));
+        builder.OpenComponent(0, typeof(CascadingValue<PersistentComponentBase>));
 
         builder.AddAttribute(1, "Name", "StateRoot");
         builder.AddAttribute(2, "Value", PersistentComponent);

@@ -2,7 +2,7 @@
 
 namespace BitzArt.Blazor.State.SampleApp.Client.Components;
 
-public partial class Counter : PersistentComponent
+public partial class Counter : PersistentComponentBase
 {
     [Parameter, EditorRequired]
     public string Name { get; set; } = string.Empty;

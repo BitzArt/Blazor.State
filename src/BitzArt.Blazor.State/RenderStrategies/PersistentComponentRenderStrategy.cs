@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace BitzArt.Blazor.State;
 
-internal class PersistentComponentRenderStrategy(PersistentComponent component)
+internal class PersistentComponentRenderStrategy(PersistentComponentBase component)
     : ComponentRenderStrategy(component)
 {
     internal bool StateInitialized;
 
-    protected PersistentComponent PersistentComponent { get; private set; } = component;
+    protected PersistentComponentBase PersistentComponent { get; private set; } = component;
     protected virtual bool ShouldWaitForRootStateRestore => true;
 
     protected override async Task RunInitAndSetParametersAsync()
@@ -95,7 +95,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponent component)
         // to provide access to this component as a StateParent
         // for all child components
 
-        builder.OpenComponent(0, typeof(CascadingValue<PersistentComponent>));
+        builder.OpenComponent(0, typeof(CascadingValue<PersistentComponentBase>));
 
         builder.AddAttribute(1, "Name", "StateParent");
         builder.AddAttribute(2, "Value", PersistentComponent);

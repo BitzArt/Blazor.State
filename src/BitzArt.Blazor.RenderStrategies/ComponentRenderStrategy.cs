@@ -14,7 +14,7 @@ internal class ComponentRenderStrategy
     internal RenderHandle Handle { get; set; }
     private readonly RenderFragment _renderFragment;
 
-    public StrategyRenderedComponent Component { get; set; }
+    public StrategyRenderedComponentBase Component { get; set; }
 
     internal IComponentRenderMode? AssignedRenderMode
     {
@@ -29,7 +29,7 @@ internal class ComponentRenderStrategy
         }
     }
 
-    internal ComponentRenderStrategy(StrategyRenderedComponent component)
+    internal ComponentRenderStrategy(StrategyRenderedComponentBase component)
     {
         Component = component;
         _renderFragment = GetRenderFragmentHandler();

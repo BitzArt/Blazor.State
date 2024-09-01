@@ -2,7 +2,7 @@
 
 namespace BitzArt.Blazor.State.SampleApp.Client.Pages;
 
-public partial class CounterPage : PersistentComponent
+public partial class CounterPage : PersistentComponentBase
 {
     private Counter? _counter1;
     private Counter? Counter1

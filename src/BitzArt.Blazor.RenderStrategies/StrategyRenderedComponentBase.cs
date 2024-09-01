@@ -6,14 +6,14 @@ namespace BitzArt.Blazor.State;
 /// <summary>
 /// Represents a component that uses a <see cref="ComponentRenderStrategy"/> to render.
 /// </summary>
-public abstract class StrategyRenderedComponent : IStrategyRenderedComponent
+public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
 {
     internal ComponentRenderStrategy RenderStrategy { get; private set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StrategyRenderedComponent"/> class.
+    /// Initializes a new instance of the <see cref="StrategyRenderedComponentBase"/> class.
     /// </summary>
-    public StrategyRenderedComponent()
+    public StrategyRenderedComponentBase()
     {
         RenderStrategy = GetRenderStrategy();
     }
