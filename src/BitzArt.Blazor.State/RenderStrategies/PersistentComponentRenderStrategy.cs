@@ -85,6 +85,9 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         await PersistentComponent.InitializeStateInternalAsync();
 
         StateInitialized = true;
+
+        if (PersistentComponent.StateContainer is not null)
+            await PersistentComponent.StateContainer!.RefreshAsync();
     }
 
     internal override void BuildRenderTree(RenderTreeBuilder builder)

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace BitzArt.Blazor.State;
 
@@ -11,7 +13,19 @@ public abstract class PersistentComponentBase : StrategyRenderedComponentBase
     internal PersistentComponentBase? StateRoot { get; set; }
 
     [CascadingParameter(Name = "StateParent")]
-    internal PersistentComponentBase? StateParent { get; set; }
+    internal PersistentComponentBase? StateParent
+    {
+        get => stateParent;
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            stateParent = value;
+            value.StateDescendants.Add(this);
+        }
+    }
+    private PersistentComponentBase? stateParent;
+
+    internal List<PersistentComponentBase> StateDescendants = [];
 
     private PageStateContainer? stateContainer;
 
@@ -28,6 +42,18 @@ public abstract class PersistentComponentBase : StrategyRenderedComponentBase
     }
 
     internal bool IsStateRoot = false;
+
+    [Inject]
+    internal PersistentComponentRenderStrategyFactory RenderStrategyFactory
+    {
+        get => renderStrategyFactory;
+        set
+        {
+            renderStrategyFactory = value;
+            RenderStrategy = value.CreateStrategy(this);
+        }
+    }
+    private PersistentComponentRenderStrategyFactory renderStrategyFactory = null!;
 
     /// <summary>
     /// Identifies this component within it's closest parent stateful component. <br/><br/>
@@ -46,12 +72,9 @@ public abstract class PersistentComponentBase : StrategyRenderedComponentBase
         => StateId is not null ? new (StateId) : new(GetType());
 
     private PersistentComponentRenderStrategy PersistentRenderStrategy
-        => (PersistentComponentRenderStrategy)RenderStrategy;
+        => (PersistentComponentRenderStrategy)RenderStrategy!;
 
     internal bool StateInitialized => PersistentRenderStrategy.StateInitialized;
-
-    internal override ComponentRenderStrategy GetRenderStrategy()
-        => PersistentComponentRenderStrategyFactory.CreateStrategy(this);
 
     /// <summary>
     /// Method invoked to initialize the component's state.

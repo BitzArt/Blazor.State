@@ -7,9 +7,6 @@ internal class PageStateContainer : StrategyRenderedComponentBase
 {
     internal const string PageStateElementId = "page-state";
 
-    internal override ComponentRenderStrategy GetRenderStrategy()
-        => new PageStateContainerRenderStrategy(this);
-
     /// <summary>
     /// Page root component.
     /// </summary>
@@ -24,6 +21,14 @@ internal class PageStateContainer : StrategyRenderedComponentBase
     [Parameter]
     public RenderFragment ChildContent { get; set; } = null!;
 
+    [Inject]
+    public PersistentComponentStateComposer StateComposer { get; set; } = null!;
+
+    public PageStateContainer() : base()
+    {
+        RenderStrategy = new PageStateContainerRenderStrategy(this);
+    }
+
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
@@ -33,11 +38,41 @@ internal class PageStateContainer : StrategyRenderedComponentBase
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent(1, typeof(CascadingValue<PageStateContainer>));
+        // TODO: State container duplicates when re-rendering! This needs to be fixed
 
-        builder.AddAttribute(2, "Value", this);
-        builder.AddAttribute(3, "ChildContent", ChildContent);
+        var stateElement = BuildStateElement();
+        if (stateElement is not null)
+            builder.AddMarkupContent(1, stateElement);
+
+        builder.OpenComponent(2, typeof(CascadingValue<PageStateContainer>));
+
+        builder.AddAttribute(3, "Value", this);
+        builder.AddAttribute(4, "ChildContent", ChildContent);
 
         builder.CloseComponent();
+    }
+
+    private string? BuildStateElement()
+    {
+        var json = StateRoot is not null ? StateComposer.SerializeState(StateRoot!) : null;
+        if (json is null) return null;
+
+        var stateEncoded = Convert.ToBase64String(json);
+
+        return $"<script id=\"{PageStateElementId}\" type=\"text/template\">{stateEncoded}</script>";
+    }
+
+    internal async Task RefreshAsync()
+    {
+        var task = InvokeAsync(StateHasChanged);
+        try
+        {
+            if (!task.IsCanceled && task.Status != TaskStatus.RanToCompletion)
+                await task;
+        }
+        catch
+        {
+            if (!task.IsCanceled) throw;
+        }
     }
 }

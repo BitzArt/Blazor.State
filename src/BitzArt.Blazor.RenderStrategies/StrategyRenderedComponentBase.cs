@@ -8,18 +8,14 @@ namespace BitzArt.Blazor.State;
 /// </summary>
 public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
 {
-    internal ComponentRenderStrategy RenderStrategy { get; private set; }
+    internal ComponentRenderStrategy? RenderStrategy { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StrategyRenderedComponentBase"/> class.
     /// </summary>
     public StrategyRenderedComponentBase()
     {
-        RenderStrategy = GetRenderStrategy();
     }
-
-    internal virtual ComponentRenderStrategy GetRenderStrategy()
-        => new(this);
 
     /// <summary>
     /// Renders the component to the supplied <see cref="RenderTreeBuilder"/>.
@@ -50,12 +46,12 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// <summary>
     /// Gets the <see cref="Microsoft.AspNetCore.Components.RendererInfo"/> the component is running on.
     /// </summary>
-    protected RendererInfo RendererInfo => RenderStrategy.Handle.RendererInfo;
+    protected RendererInfo RendererInfo => RenderStrategy!.Handle.RendererInfo;
 
     /// <summary>
     /// Gets the <see cref="ResourceAssetCollection"/> for the application.
     /// </summary>
-    protected ResourceAssetCollection Assets => RenderStrategy.Handle.Assets;
+    protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
 
     /// <summary>
     /// Method invoked when the component is ready to start, having received its
@@ -101,7 +97,7 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// </para>
     /// </remarks>
     public virtual Task SetParametersAsync(ParameterView parameters)
-        => RenderStrategy.SetParametersAsync(parameters);
+        => RenderStrategy!.SetParametersAsync(parameters);
 
     /// <summary>
     /// Method invoked when the component has received parameters from its parent in
@@ -184,7 +180,7 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// Notifies the component that its state has changed. When applicable, this will
     /// cause the component to be re-rendered.
     /// </summary>
-    protected void StateHasChanged() => RenderStrategy.StateHasChanged();
+    protected void StateHasChanged() => RenderStrategy!.StateHasChanged();
 
     /// <summary>
     /// Executes the supplied work item on the associated renderer's
@@ -192,7 +188,7 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// </summary>
     /// <param name="workItem">The work item to execute.</param>
     protected Task InvokeAsync(Action workItem)
-        => RenderStrategy.Handle.Dispatcher.InvokeAsync(workItem);
+        => RenderStrategy!.Handle.Dispatcher.InvokeAsync(workItem);
 
     /// <summary>
     /// Executes the supplied work item on the associated renderer's
@@ -200,7 +196,7 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// </summary>
     /// <param name="workItem">The work item to execute.</param>
     protected Task InvokeAsync(Func<Task> workItem)
-        => RenderStrategy.Handle.Dispatcher.InvokeAsync(workItem);
+        => RenderStrategy!.Handle.Dispatcher.InvokeAsync(workItem);
 
     /// <summary>
     /// Treats the supplied <paramref name="exception"/> as being thrown by this component. This will cause the
@@ -213,10 +209,10 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// <param name="exception">The <see cref="Exception"/> that will be dispatched to the renderer.</param>
     /// <returns>A <see cref="Task"/> that will be completed when the exception has finished dispatching.</returns>
     protected Task DispatchExceptionAsync(Exception exception)
-        => RenderStrategy.Handle.DispatchExceptionAsync(exception);
+        => RenderStrategy!.Handle.DispatchExceptionAsync(exception);
 
     void IComponent.Attach(RenderHandle renderHandle)
-        => RenderStrategy.Attach(renderHandle);
+        => RenderStrategy!.Attach(renderHandle);
 
     Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
     {
@@ -230,10 +226,10 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
         StateHasChanged();
 
         return shouldAwaitTask ?
-            RenderStrategy.CallStateHasChangedOnAsyncCompletion(task) :
+            RenderStrategy!.CallStateHasChangedOnAsyncCompletion(task) :
             Task.CompletedTask;
     }
 
     Task IHandleAfterRender.OnAfterRenderAsync()
-        => RenderStrategy.OnAfterRenderAsync();
+        => RenderStrategy!.OnAfterRenderAsync();
 }

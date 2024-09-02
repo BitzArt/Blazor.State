@@ -3,21 +3,18 @@ using System.Reflection;
 
 namespace BitzArt.Blazor.State;
 
-internal static class PersistentComponentRenderStrategyFactory
+internal class PersistentComponentRenderStrategyFactory
 {
-    private static bool _initialized;
+    private bool _initialized;
 
-    internal static HashSet<Type> Components = null!;
-    internal static HashSet<Type> Pages = null!;
+    internal HashSet<Type> Components = null!;
+    internal HashSet<Type> Pages = null!;
 
-    internal static void Initialize(IEnumerable<Assembly> assemblies)
+    internal void Initialize(IEnumerable<Type> componentTypes)
     {
-        var components = assemblies
-            .SelectMany(assembly => assembly.GetTypes())
-            .Where(type => typeof(IStrategyRenderedComponent).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface)
-            .ToList();
-
+        var components = new List<Type>(componentTypes);
         var pages = new List<Type>();
+
         for (var i = 0; i < components.Count; i++)
         {
             var component = components[i];
@@ -35,7 +32,7 @@ internal static class PersistentComponentRenderStrategyFactory
         _initialized = true;
     }
 
-    internal static ComponentRenderStrategy CreateStrategy(PersistentComponentBase component)
+    internal ComponentRenderStrategy CreateStrategy(PersistentComponentBase component)
     {
         if (!_initialized) throw new InvalidOperationException("PersistentComponentRenderStrategyFactory is not initialized.");
 

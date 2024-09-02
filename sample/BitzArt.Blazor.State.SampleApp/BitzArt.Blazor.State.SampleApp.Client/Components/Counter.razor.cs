@@ -13,12 +13,14 @@ public partial class Counter : PersistentComponentBase
     [ComponentState]
     public int Count { get; private set; } = 0;
 
-    private string _stateText = string.Empty;
+    [ComponentState]
+    public string InfoText { get; set; } = string.Empty;
 
     protected override async Task InitializeStateAsync()
     {
         await Task.Delay(100); // simulate loading data
-        _stateText = $"State initialized in render mode: {RendererInfo.Name}";
+
+        InfoText = $"State initialized in render mode: {RendererInfo.Name}";
     }
 
     private void IncrementCount(object? state)

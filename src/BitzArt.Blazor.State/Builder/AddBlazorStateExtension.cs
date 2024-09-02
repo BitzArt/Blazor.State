@@ -14,9 +14,21 @@ public static class AddBlazorStateExtension
     public static IServiceCollection AddBlazorState(this IServiceCollection services, Action<IBlazorStateBuilder>? configure = null)
     {
         var builder = new BlazorStateBuilder(services);
+
         if (configure is not null) configure(builder);
 
-        PersistentComponentRenderStrategyFactory.Initialize(builder.AddedAssemblies);
+        var componentTypes = builder.AddedAssemblies
+            .SelectMany(assembly => assembly.GetTypes())
+            .Where(type => !type.IsAbstract)
+            .Where(type => type.IsAssignableTo(typeof(PersistentComponentBase)))
+            .ToList();
+
+        builder.PersistentComponentRenderStrategyFactory.Initialize(componentTypes);
+
+        var componentStatePropertyMap = new PersistentComponentStatePropertyMap(componentTypes);
+        services.AddSingleton(componentStatePropertyMap);
+
+        services.AddSingleton<PersistentComponentStateComposer>();
 
         return services;
     }
