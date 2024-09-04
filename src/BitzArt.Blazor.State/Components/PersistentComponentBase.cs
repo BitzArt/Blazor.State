@@ -25,7 +25,7 @@ public abstract class PersistentComponentBase : StrategyRenderedComponentBase
     }
     private PersistentComponentBase? stateParent;
 
-    internal List<PersistentComponentBase> StateDescendants = [];
+    internal HashSet<PersistentComponentBase> StateDescendants = [];
 
     private PageStateContainer? stateContainer;
 
@@ -37,7 +37,6 @@ public abstract class PersistentComponentBase : StrategyRenderedComponentBase
         {
             stateContainer = value;
             PersistentRenderStrategy.StateContainer = value;
-            Console.WriteLine($"{GetType().Name}: StateContainer supplied");
         }
     }
 
@@ -81,7 +80,6 @@ public abstract class PersistentComponentBase : StrategyRenderedComponentBase
     /// </summary>
     protected virtual void InitializeState()
     {
-        Console.WriteLine($"{GetType().Name}: InitializeState was called");
     }
 
     internal void InitializeStateInternal()

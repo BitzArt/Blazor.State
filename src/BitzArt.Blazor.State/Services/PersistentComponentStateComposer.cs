@@ -9,14 +9,15 @@ internal class PersistentComponentStateComposer(
 {
     private JsonSerializerOptions serializerOptions = stateSerializerOptions.Options;
 
-    internal byte[] SerializeState(PersistentComponentBase component)
+    internal byte[]? SerializeState(PersistentComponentBase component)
     {
         var rootNode = SerializeStateNode(component);
+        if (rootNode is null) return null;
 
         return JsonSerializer.SerializeToUtf8Bytes(rootNode, serializerOptions);
     }
 
-    private JsonNode SerializeStateNode(PersistentComponentBase component)
+    private JsonObject? SerializeStateNode(PersistentComponentBase component)
     {
         Console.WriteLine($"Serializing state node: {component.GetType().Name}");
 
@@ -36,7 +37,14 @@ internal class PersistentComponentStateComposer(
 
         // Serialize descendants
         foreach (var descendant in component.StateDescendants)
-            node.Add($"n__{descendant.PositionIdentifier.Id}", SerializeStateNode(descendant));
+        {
+            var descendantNode = SerializeStateNode(descendant);
+            if (descendantNode is null) continue;
+
+            node.Add($"n__{descendant.PositionIdentifier.Id}", descendantNode);
+        }
+
+        if (node.Count == 0) return null;
 
         return node;
     }

@@ -27,8 +27,6 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
 
         if (PersistentComponent.StateRoot!.StateInitialized) return;
 
-        Console.WriteLine($"{PersistentComponent.GetType().Name}: Waiting for root component");
-
         var cts = new CancellationTokenSource();
         PersistentComponent.StateRoot!.OnStateRestored += cts.Cancel;
         var timeoutTask = Task.Delay(5000, cts.Token);
@@ -69,8 +67,6 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         {
             await WaitForPageStateAsync();
         }
-
-        Console.WriteLine($"{PersistentComponent.GetType().Name}: State restore");
 
         // TODO: State restore logic
         // Just re-initializing the state for now

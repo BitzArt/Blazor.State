@@ -1,18 +1,13 @@
 ﻿@page "/counter"
-@rendermode InteractiveServer
+@rendermode InteractiveWebAssembly
 @inherits PersistentComponentBase
 
 <PageTitle>Counter</PageTitle>
 
 <Counter Name="Counter 1"
          Description="This counter is initialized while pre-rendering"
-         StateId="Counter1"
-         @ref="Counter1"/>
+         StateId="Counter1"/>
 
-@if (RendererInfo.IsInteractive)
-{
-    <Counter
-        Name="Counter 2"
-        Description="This counter is only initialized in interactive render modes"
-        StateId="Counter2" />
-}
+<Counter Name="Counter 2"
+         Description="This counter is initialized while pre-rendering"
+         StateId="Counter2" />

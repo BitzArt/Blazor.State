@@ -48,12 +48,11 @@ internal class ComponentRenderStrategy
         _hasPendingQueuedRender = false;
         _hasNeverRendered = false;
 
-        Console.WriteLine($"{Component.GetType().Name}: Render started");
+        Console.WriteLine($"{Component.GetType().Name}: Render");
     }
 
     internal void OnRendered()
     {
-        Console.WriteLine($"{Component.GetType().Name}: Rendered");
     }
 
     internal virtual void BuildRenderTree(RenderTreeBuilder builder)

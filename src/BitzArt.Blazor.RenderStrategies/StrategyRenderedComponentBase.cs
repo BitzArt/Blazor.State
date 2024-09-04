@@ -59,7 +59,6 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// </summary>
     protected virtual void OnInitialized()
     {
-        Console.WriteLine($"{GetType().Name}: OnInitialized was called");
     }
 
     internal void OnInitializedInternal()
@@ -105,7 +104,6 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// </summary>
     protected virtual void OnParametersSet()
     {
-        Console.WriteLine($"{GetType().Name}: OnParametersSet was called");
     }
 
     internal void OnParametersSetInternal()
@@ -142,7 +140,6 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     /// </remarks>
     protected virtual void OnAfterRender(bool firstRender)
     {
-        Console.WriteLine($"{GetType().Name}: OnAfterRender was called");
     }
 
     internal void OnAfterRenderInternal(bool firstRender)
