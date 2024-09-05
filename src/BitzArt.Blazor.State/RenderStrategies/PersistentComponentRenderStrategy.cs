@@ -78,8 +78,16 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         if (rootStrategy is not PersistentPageRenderStrategy pageStrategy)
             throw new InvalidOperationException("The root stateful component is not a page. Make sure your page inherits from PersistentComponentBase.");
 
-        var pageState = pageStrategy.PageState
-            ?? throw new InvalidOperationException("Page state is not available.");
+        var pageState = pageStrategy.PageState;
+
+        if (pageState is null)
+        {
+            // Page state not found.
+            // Initializing state as a fallback.
+
+            await InitializeStateAsync();
+            return;
+        }
 
         var path = GetComponentLocation(PersistentComponent);
         var state = pageState.GetComponentState(path);
