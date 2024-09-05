@@ -1,0 +1,92 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{9CA44D4E-0295-4A3F-94DB-7428A05E795A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{46952EDA-0C6C-4436-AB79-FFE35E13D112}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\docs.yml = .github\workflows\docs.yml
+		.github\workflows\publish.yml = .github\workflows\publish.yml
+		.github\workflows\tests.yml = .github\workflows\tests.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4CEA9216-5CE1-4CC7-87BF-046837CACC99}"
+	ProjectSection(SolutionItems) = preProject
+		docs\book.toml = docs\book.toml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56DAC196-1ECD-4485-A227-1A239FCC9866}"
+	ProjectSection(SolutionItems) = preProject
+		docs\src\01.introduction.md = docs\src\01.introduction.md
+		docs\src\SUMMARY.md = docs\src\SUMMARY.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5A39EAA1-A9D6-402C-B1CD-1704F0DBD80B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{750EFE03-9656-4B39-A67F-74D3A900CEE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{818B8950-B52B-49E9-B15B-196024C22A18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State", "src\BitzArt.Blazor.State\BitzArt.Blazor.State.csproj", "{AF79E00B-481B-4D0D-9E2F-09BD3B528735}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State.Tests", "tests\BitzArt.Blazor.State.Tests\BitzArt.Blazor.State.Tests.csproj", "{97DF570A-9E40-440C-9360-BC3AA5E1A83E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State.SampleApp", "sample\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp.csproj", "{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State.SampleApp.Client", "sample\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp.Client\BitzArt.Blazor.State.SampleApp.Client.csproj", "{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BitzArt.Blazor.State.SampleApp", "BitzArt.Blazor.State.SampleApp", "{AF748271-0827-41E0-9ACC-F6B38227B85F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{853EC833-DEF6-4DB4-BE27-DFD460523236}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.RenderStrategies", "src\BitzArt.Blazor.RenderStrategies\BitzArt.Blazor.RenderStrategies.csproj", "{201A4DFF-23FA-40C5-8920-9B9907D95E57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF79E00B-481B-4D0D-9E2F-09BD3B528735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF79E00B-481B-4D0D-9E2F-09BD3B528735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF79E00B-481B-4D0D-9E2F-09BD3B528735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF79E00B-481B-4D0D-9E2F-09BD3B528735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97DF570A-9E40-440C-9360-BC3AA5E1A83E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97DF570A-9E40-440C-9360-BC3AA5E1A83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97DF570A-9E40-440C-9360-BC3AA5E1A83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97DF570A-9E40-440C-9360-BC3AA5E1A83E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{201A4DFF-23FA-40C5-8920-9B9907D95E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{201A4DFF-23FA-40C5-8920-9B9907D95E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{201A4DFF-23FA-40C5-8920-9B9907D95E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{201A4DFF-23FA-40C5-8920-9B9907D95E57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{46952EDA-0C6C-4436-AB79-FFE35E13D112} = {9CA44D4E-0295-4A3F-94DB-7428A05E795A}
+		{56DAC196-1ECD-4485-A227-1A239FCC9866} = {4CEA9216-5CE1-4CC7-87BF-046837CACC99}
+		{AF79E00B-481B-4D0D-9E2F-09BD3B528735} = {5A39EAA1-A9D6-402C-B1CD-1704F0DBD80B}
+		{97DF570A-9E40-440C-9360-BC3AA5E1A83E} = {750EFE03-9656-4B39-A67F-74D3A900CEE1}
+		{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC} = {AF748271-0827-41E0-9ACC-F6B38227B85F}
+		{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF} = {AF748271-0827-41E0-9ACC-F6B38227B85F}
+		{AF748271-0827-41E0-9ACC-F6B38227B85F} = {818B8950-B52B-49E9-B15B-196024C22A18}
+		{201A4DFF-23FA-40C5-8920-9B9907D95E57} = {5A39EAA1-A9D6-402C-B1CD-1704F0DBD80B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70901A76-781C-4DB7-A313-3E93BE0F665F}
+	EndGlobalSection
+EndGlobal
