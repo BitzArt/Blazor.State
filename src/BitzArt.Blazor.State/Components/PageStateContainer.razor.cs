@@ -2,6 +2,10 @@
 
 namespace BitzArt.Blazor.State;
 
+/// <summary>
+/// A container component that can store the state
+/// of a persistent page after it's successful prerendering.
+/// </summary>
 internal class PageStateContainer : StrategyRenderedComponentBase
 {
     /// <summary>

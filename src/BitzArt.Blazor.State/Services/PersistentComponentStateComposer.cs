@@ -7,7 +7,7 @@ internal class PersistentComponentStateComposer(
     PersistentComponentStatePropertyMap map,
     StateJsonSerializerOptions stateSerializerOptions)
 {
-    private JsonSerializerOptions serializerOptions = stateSerializerOptions.Options;
+    private readonly JsonSerializerOptions serializerOptions = stateSerializerOptions.Options;
 
     internal byte[]? SerializeState(PersistentComponentBase component)
     {

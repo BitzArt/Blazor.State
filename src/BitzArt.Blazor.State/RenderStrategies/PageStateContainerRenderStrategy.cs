@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using static BitzArt.Blazor.State.Constants;
 
 namespace BitzArt.Blazor.State;
 
 internal class PageStateContainerRenderStrategy(PageStateContainer component)
     : ComponentRenderStrategy(component)
 {
-    internal const string PageStateElementId = "page-state";
-
     internal override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenComponent(0, typeof(CascadingValue<PageStateContainer>));

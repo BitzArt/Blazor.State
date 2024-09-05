@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace BitzArt.Blazor.State;
 
@@ -23,14 +27,15 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
     private async Task WaitForPageStateAsync()
     {
         // This should not normally happen
-        if (PersistentComponent.IsStateRoot) return;
+        if (PersistentComponent.IsStateRoot) throw new UnreachableException();
 
         if (PersistentComponent.StateRoot!.StateInitialized) return;
 
-        var cts = new CancellationTokenSource();
+        using var cts = new CancellationTokenSource();
         PersistentComponent.StateRoot!.OnStateRestored += cts.Cancel;
-        var timeoutTask = Task.Delay(5000, cts.Token);
+        using var timeoutTask = Task.Delay(5000, cts.Token);
         if (cts.IsCancellationRequested) return;
+        if (PersistentComponent.StateRoot!.StateInitialized) return;
 
         try
         {
@@ -44,14 +49,15 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
             }
         }
 
-        if (timeoutTask.Status == TaskStatus.RanToCompletion) throw new TimeoutException("Timed out waiting for root state restore");
+        if (timeoutTask.Status == TaskStatus.RanToCompletion)
+            throw new TimeoutException("Timed out: Page state took too long to restore.");
     }
 
     protected virtual async Task SetupStateAsync()
     {
         if (StateInitialized) throw new InvalidOperationException("State has already been initialized for this component.");
 
-        if (StateContainer is not null && StateContainer.HasState)
+        if (Handle.RendererInfo.IsInteractive)
         {
             await RestoreStateAsync();
         }
@@ -61,21 +67,77 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         }
     }
 
-    private async Task RestoreStateAsync()
+    protected virtual async Task RestoreStateAsync()
     {
         if (ShouldWaitForRootStateRestore)
         {
             await WaitForPageStateAsync();
         }
 
-        // TODO: State restore logic
-        // Just re-initializing the state for now
-        await InitializeStateAsync();
+        var rootStrategy = PersistentComponent.StateRoot!.RenderStrategy;
+        if (rootStrategy is not PersistentPageRenderStrategy pageStrategy)
+            throw new InvalidOperationException("The root stateful component is not a page. Make sure your page inherits from PersistentComponentBase.");
+
+        var pageState = pageStrategy.PageState
+            ?? throw new InvalidOperationException("Page state is not available.");
+
+        var path = GetComponentLocation(PersistentComponent);
+        var state = pageState.GetComponentState(path);
+
+        if (state is null)
+        {
+            // Component state not found.
+            // Initializing state as a fallback.
+
+            await InitializeStateAsync();
+            return;
+        }
+        
+        RestoreComponentState(state);
+        StateInitialized = true;
 
         PersistentComponent.NotifyStateRestored();
     }
 
-    private async Task InitializeStateAsync()
+    protected void RestoreComponentState(JsonObject state)
+    {
+        var stateInfo = ServiceProvider
+            .GetRequiredService<PersistentComponentStatePropertyMap>()
+            .GetComponentStateInfo(PersistentComponent.GetType());
+
+        var serializerOptions = ServiceProvider.GetRequiredService<StateJsonSerializerOptions>().Options;
+
+        foreach (var property in stateInfo.StateProperties)
+        {
+            var propertyInfo = property.PropertyInfo;
+            var value = state[propertyInfo.Name];
+
+            if (value is null)
+            {
+                throw new UnreachableException();
+            }
+
+            var deserializedValue = value.Deserialize(propertyInfo.PropertyType, serializerOptions);
+            propertyInfo.SetValue(PersistentComponent, deserializedValue);
+        }
+    }
+
+    private IEnumerable<string> GetComponentLocation(PersistentComponentBase component)
+    {
+        List<string> location = [];
+
+        var current = component;
+        while (!current!.IsStateRoot)
+        {
+            location.Add(current.PositionIdentifier.Id);
+            current = current.StateParent;
+        }
+        location.Reverse();
+
+        return location;
+    }
+
+    protected async Task InitializeStateAsync()
     {
         PersistentComponent.InitializeStateInternal();
         await PersistentComponent.InitializeStateInternalAsync();

@@ -8,6 +8,13 @@ namespace BitzArt.Blazor.State;
 /// </summary>
 public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
 {
+    [Inject]
+    internal IServiceProvider ServiceProvider
+    {
+        get => RenderStrategy!.ServiceProvider;
+        set => RenderStrategy!.ServiceProvider = value;
+    }
+
     internal ComponentRenderStrategy? RenderStrategy { get; set; }
 
     /// <summary>

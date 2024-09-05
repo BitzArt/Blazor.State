@@ -16,6 +16,8 @@ internal class ComponentRenderStrategy
 
     public StrategyRenderedComponentBase Component { get; set; }
 
+    public IServiceProvider ServiceProvider { get; set; }
+
     internal IComponentRenderMode? AssignedRenderMode
     {
         get
