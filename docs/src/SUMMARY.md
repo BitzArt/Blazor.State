@@ -3,4 +3,6 @@
 # Blazor.State
 
 - [Introduction](01.introduction.md)
-- [Use Blazor.State](02.use-blazor-state.md)
+- [Getting Started](02.getting-started.md)
+- [State Hierarchy](03.state-hierarchy.md)
+- [Initializing State](04.initializing-state.md)
