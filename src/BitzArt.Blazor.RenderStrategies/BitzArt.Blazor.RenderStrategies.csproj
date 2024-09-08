@@ -9,7 +9,7 @@
 
 		<PackageId>BitzArt.Blazor.RenderStrategies</PackageId>
 		<Authors>BitzArt</Authors>
-		<Description>Implements strategy-based rendering of Blazor components</Description>
+		<Description>Implements strategy pattern for Blazor component rendering.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/BitzArt/Blazor.State</RepositoryUrl>

@@ -9,7 +9,7 @@
 
 		<PackageId>BitzArt.Blazor.State</PackageId>
 		<Authors>BitzArt</Authors>
-		<Description>Component state management library for Blazor United</Description>
+		<Description>Persisting Blazor component states</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/BitzArt/Blazor.State</RepositoryUrl>
