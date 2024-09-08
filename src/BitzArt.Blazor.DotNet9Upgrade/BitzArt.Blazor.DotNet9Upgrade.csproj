@@ -4,12 +4,15 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<RootNamespace>BitzArt.Blazor.Render</RootNamespace>
+		<RootNamespace>BitzArt.Blazor</RootNamespace>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-		<PackageId>BitzArt.Blazor.RenderStrategies</PackageId>
+		<PackageId>BitzArt.Blazor.DotNet9Upgrade</PackageId>
 		<Authors>BitzArt</Authors>
-		<Description>Implements strategy-based rendering of Blazor components</Description>
+		<Description>
+			Somewhat-mockup implementations of some of the Blazor APIs added in dotnet 9.
+			This package will be deprecated after a stable version of dotnet 9 is released.
+		</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/BitzArt/Blazor.State</RepositoryUrl>
@@ -18,25 +21,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\..\README.md" Pack="True" Visible="False" PackagePath="\" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+	  <PackageReference Include="Microsoft.JSInterop" Version="8.0.8" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>BitzArt.Blazor.RenderStrategies</_Parameter1>
+		</AssemblyAttribute>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
 			<_Parameter1>BitzArt.Blazor.State</_Parameter1>
 		</AssemblyAttribute>
-		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-			<_Parameter1>BitzArt.Blazor.State.Tests</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
-		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.8" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\BitzArt.Blazor.DotNet9Upgrade\BitzArt.Blazor.DotNet9Upgrade.csproj" />
 	</ItemGroup>
 
 </Project>

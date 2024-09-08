@@ -21,8 +21,11 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
     internal override void Attach(RenderHandle renderHandle)
     {
         base.Attach(renderHandle);
-        _shouldPersistState = Handle.RendererInfo.Name == "Static";
-        Console.WriteLine($"\n{Component.GetType().Name}: Rendering page, renderer: {Handle.RendererInfo.Name}");
+        // TODO: Dotnet 9
+        //_shouldPersistState = Handle.RendererInfo.Name == "Static";
+        //Console.WriteLine($"\n{Component.GetType().Name}: Rendering page, renderer: {Handle.RendererInfo.Name}");
+        _shouldPersistState = RendererInfo.Name == "Static";
+        Console.WriteLine($"\n{Component.GetType().Name}: Rendering page, renderer: {RendererInfo.Name}");
     }
 
     internal override void BuildRenderTree(RenderTreeBuilder builder)

@@ -57,7 +57,9 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
     {
         if (StateInitialized) throw new InvalidOperationException("State has already been initialized for this component.");
 
-        if (Handle.RendererInfo.IsInteractive)
+        // TODO: Dotnet 9
+        //if (Handle.RendererInfo.IsInteractive)
+        if (RendererInfo.IsInteractive)
         {
             await RestoreStateAsync();
         }

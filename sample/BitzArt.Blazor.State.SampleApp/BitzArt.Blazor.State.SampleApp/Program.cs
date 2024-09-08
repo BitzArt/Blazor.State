@@ -20,7 +20,8 @@ namespace BitzArt.Blazor.State.SampleApp
 
             var app = builder.Build();
 
-            app.MapStaticAssets();
+            // TODO: Dotnet 9
+            //app.MapStaticAssets();
             app.UseStaticFiles();
             app.UseAntiforgery();
 

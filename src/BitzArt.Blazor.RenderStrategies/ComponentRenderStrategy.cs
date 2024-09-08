@@ -5,23 +5,29 @@ namespace BitzArt.Blazor.State;
 
 internal class ComponentRenderStrategy
 {
-    private (IComponentRenderMode? mode, bool cached) _renderMode;
+    // TODO: Dotnet 9
+    // private (IComponentRenderMode? mode, bool cached) _renderMode;
     private bool _initialized;
     private bool _hasNeverRendered = true;
     private bool _hasPendingQueuedRender;
     private bool _hasCalledOnAfterRender;
+
+    //TODO: Dotnet 9
+    internal RendererInfo RendererInfo { get; set; } = null!;
 
     internal RenderHandle Handle { get; set; }
     private readonly RenderFragment _renderFragment;
 
     public StrategyRenderedComponentBase Component { get; set; }
 
-    public IServiceProvider ServiceProvider { get; set; }
+    public IServiceProvider ServiceProvider { get; set; } = null!;
 
-    internal IComponentRenderMode? AssignedRenderMode
+    // TODO: Dotnet 9
+    /*internal IComponentRenderMode? AssignedRenderMode
     {
         get
         {
+            
             if (!_renderMode.cached)
             {
                 _renderMode = (Handle.RenderMode, true);
@@ -29,7 +35,7 @@ internal class ComponentRenderStrategy
 
             return _renderMode.mode;
         }
-    }
+    }*/
 
     internal ComponentRenderStrategy(StrategyRenderedComponentBase component)
     {

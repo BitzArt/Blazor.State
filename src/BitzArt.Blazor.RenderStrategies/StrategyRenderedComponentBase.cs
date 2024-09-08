@@ -15,6 +15,17 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
         set => RenderStrategy!.ServiceProvider = value;
     }
 
+    // TODO: Dotnet 9
+    /// <summary>
+    /// To be replaced with the default implementation with the release of dotnet 9.
+    /// </summary>
+    [Inject]
+    public RendererInfo RendererInfo
+    {
+        get => RenderStrategy!.RendererInfo;
+        internal set => RenderStrategy!.RendererInfo = value;
+    }
+
     internal ComponentRenderStrategy? RenderStrategy { get; set; }
 
     /// <summary>
@@ -35,10 +46,11 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     internal void BuildRenderTreeInternal(RenderTreeBuilder builder)
         => BuildRenderTree(builder);
 
-    /// <summary>
-    /// Gets the <see cref="IComponentRenderMode"/> assigned to this component.
-    /// </summary>
-    protected IComponentRenderMode? AssignedRenderMode => RenderStrategy!.AssignedRenderMode;
+    //TODO: Dotnet 9
+    // <summary>
+    // Gets the <see cref="IComponentRenderMode"/> assigned to this component.
+    // </summary>
+    //protected IComponentRenderMode? AssignedRenderMode => RenderStrategy!.AssignedRenderMode;
 
     /// <summary>
     /// Returns a flag to indicate whether the component should render.
@@ -50,15 +62,17 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
     internal bool ShouldRenderInternal()
         => ShouldRender();
 
-    /// <summary>
-    /// Gets the <see cref="Microsoft.AspNetCore.Components.RendererInfo"/> the component is running on.
-    /// </summary>
-    protected RendererInfo RendererInfo => RenderStrategy!.Handle.RendererInfo;
+    // TODO: Dotnet 9
+    // <summary>
+    // Gets the <see cref="Microsoft.AspNetCore.Components.RendererInfo"/> the component is running on.
+    // </summary>
+    //protected RendererInfo RendererInfo => RenderStrategy!.Handle.RendererInfo;
 
-    /// <summary>
-    /// Gets the <see cref="ResourceAssetCollection"/> for the application.
-    /// </summary>
-    protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
+    // TODO: Dotnet 9
+    // <summary>
+    // Gets the <see cref="ResourceAssetCollection"/> for the application.
+    // </summary>
+    //protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
 
     /// <summary>
     /// Method invoked when the component is ready to start, having received its
