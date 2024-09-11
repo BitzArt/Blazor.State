@@ -122,10 +122,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
             var propertyInfo = property.PropertyInfo;
             var value = state[propertyInfo.Name];
 
-            if (value is null)
-            {
-                throw new UnreachableException();
-            }
+            if (value is null) continue;
 
             var deserializedValue = value.Deserialize(propertyInfo.PropertyType, serializerOptions);
             propertyInfo.SetValue(PersistentComponent, deserializedValue);
