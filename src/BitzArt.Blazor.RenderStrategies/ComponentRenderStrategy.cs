@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BitzArt.Blazor.State;
 
-internal class ComponentRenderStrategy
+internal class ComponentRenderStrategy : IComponentRenderStrategy
 {
     // TODO: Dotnet 9
     // private (IComponentRenderMode? mode, bool cached) _renderMode;
@@ -13,12 +13,20 @@ internal class ComponentRenderStrategy
     private bool _hasCalledOnAfterRender;
 
     //TODO: Dotnet 9
-    internal RendererInfo RendererInfo { get; set; } = null!;
+    public RendererInfo RendererInfo { get; set; } = null!;
 
-    internal RenderHandle Handle { get; set; }
+    public RenderHandle Handle { get; set; }
+
+    private RenderFragment RenderFragment
+        => _customRenderFragment ?? _renderFragment;
+
+    // When not null, this render fragments overrides the default one.
+    private RenderFragment? _customRenderFragment;
+
+    // This is the default render fragment that renders the component.
     private readonly RenderFragment _renderFragment;
 
-    public StrategyRenderedComponentBase Component { get; set; }
+    public StrategyRenderedComponent Component { get; set; }
 
     public IServiceProvider ServiceProvider { get; set; } = null!;
 
@@ -37,7 +45,10 @@ internal class ComponentRenderStrategy
         }
     }*/
 
-    internal ComponentRenderStrategy(StrategyRenderedComponentBase component)
+    public void SetCustomRenderFragment(Action<RenderTreeBuilder, RenderFragment> customAction)
+        => _customRenderFragment = builder => customAction(builder, _renderFragment);
+
+    internal ComponentRenderStrategy(StrategyRenderedComponent component)
     {
         Component = component;
         _renderFragment = GetRenderFragmentHandler();
@@ -68,7 +79,7 @@ internal class ComponentRenderStrategy
         Component.BuildRenderTreeInternal(builder);
     }
 
-    internal virtual void Attach(RenderHandle renderHandle)
+    public virtual void Attach(RenderHandle renderHandle)
     {
         // This implicitly means a ComponentBase can only be associated with a single
         // renderer. That's the only use case we have right now. If there was ever a need,
@@ -144,7 +155,7 @@ internal class ComponentRenderStrategy
             Task.CompletedTask;
     }
 
-    internal async Task CallStateHasChangedOnAsyncCompletion(Task task)
+    public async Task CallStateHasChangedOnAsyncCompletion(Task task)
     {
         try
         {
@@ -164,7 +175,7 @@ internal class ComponentRenderStrategy
         StateHasChanged();
     }
 
-    internal void StateHasChanged()
+    public void StateHasChanged()
     {
         if (_hasPendingQueuedRender)
         {
@@ -177,7 +188,7 @@ internal class ComponentRenderStrategy
 
             try
             {
-                Handle.Render(_renderFragment);
+                Handle.Render(RenderFragment);
             }
             catch
             {
@@ -187,7 +198,7 @@ internal class ComponentRenderStrategy
         }
     }
 
-    internal Task OnAfterRenderAsync()
+    public Task OnAfterRenderAsync()
     {
         var firstRender = !_hasCalledOnAfterRender;
         _hasCalledOnAfterRender = true;

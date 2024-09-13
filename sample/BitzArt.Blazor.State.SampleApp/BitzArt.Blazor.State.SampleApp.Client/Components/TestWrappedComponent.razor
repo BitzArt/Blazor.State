@@ -1,0 +1,20 @@
+﻿@inherits StrategyRenderedComponent
+
+<h3>TestComponent</h3>
+
+@code {
+
+    protected override void OnStrategyAssigned(IComponentRenderStrategy strategy)
+    {
+        strategy.SetCustomRenderFragment((builder, fragment) =>
+        {
+            builder.OpenComponent<TestWrap>(0);
+            builder.AddAttribute(1, "ChildContent",
+            (RenderFragment)(innerBuilder =>
+            {
+                fragment.Invoke(innerBuilder);
+            }));
+            builder.CloseComponent();
+        });
+    }
+}

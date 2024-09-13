@@ -18,7 +18,7 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
 
     internal PersistentPageState? PageState { get; private set; }
 
-    internal override void Attach(RenderHandle renderHandle)
+    public override void Attach(RenderHandle renderHandle)
     {
         base.Attach(renderHandle);
         // TODO: Dotnet 9
