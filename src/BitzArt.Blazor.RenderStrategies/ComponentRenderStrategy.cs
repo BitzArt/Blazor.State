@@ -20,7 +20,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
     private RenderFragment RenderFragment
         => _customRenderFragment ?? _renderFragment;
 
-    // When not null, this render fragments overrides the default one.
+    // When not null, this render fragment overrides the default one.
     private RenderFragment? _customRenderFragment;
 
     // This is the default render fragment that renders the component.
