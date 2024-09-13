@@ -6,8 +6,9 @@ namespace BitzArt.Blazor.State;
 /// <summary>
 /// Represents a component that uses a <see cref="ComponentRenderStrategy"/> to render.
 /// </summary>
-public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
+public abstract class StrategyRenderedComponent : IStrategyRenderedComponent
 {
+
     [Inject]
     internal IServiceProvider ServiceProvider
     {
@@ -26,13 +27,43 @@ public abstract class StrategyRenderedComponentBase : IStrategyRenderedComponent
         internal set => RenderStrategy!.RendererInfo = value;
     }
 
-    internal ComponentRenderStrategy? RenderStrategy { get; set; }
+    internal virtual bool ShouldUseDefaultStrategy => true;
+
+    private IComponentRenderStrategy? renderStrategy;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StrategyRenderedComponentBase"/> class.
+    /// Assigned rendering strategy of this component.
     /// </summary>
-    public StrategyRenderedComponentBase()
+    public IComponentRenderStrategy? RenderStrategy
     {
+        get => renderStrategy;
+        protected set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+
+            renderStrategy = value;
+            OnStrategyAssigned(value!);
+        }
+    }
+
+    /// <summary>
+    /// This method can be overridden to perform an action
+    /// after the rendering strategy has been assigned
+    /// to the component.
+    /// </summary>
+    protected virtual void OnStrategyAssigned(IComponentRenderStrategy strategy)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StrategyRenderedComponent"/> class.
+    /// </summary>
+    public StrategyRenderedComponent()
+    {
+        if (ShouldUseDefaultStrategy)
+        {
+            RenderStrategy = new ComponentRenderStrategy(this);
+        }
     }
 
     /// <summary>

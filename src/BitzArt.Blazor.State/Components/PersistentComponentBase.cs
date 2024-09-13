@@ -7,8 +7,10 @@ namespace BitzArt.Blazor.State;
 /// <summary>
 /// Base class for persistent components.
 /// </summary>
-public abstract class PersistentComponentBase : StrategyRenderedComponentBase
+public abstract class PersistentComponentBase : StrategyRenderedComponent
 {
+    internal override bool ShouldUseDefaultStrategy => false;
+
     [CascadingParameter(Name = "StateRoot")]
     internal PersistentComponentBase? StateRoot { get; set; }
 

@@ -29,13 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{750EFE03
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{818B8950-B52B-49E9-B15B-196024C22A18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State", "src\BitzArt.Blazor.State\BitzArt.Blazor.State.csproj", "{AF79E00B-481B-4D0D-9E2F-09BD3B528735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitzArt.Blazor.State", "src\BitzArt.Blazor.State\BitzArt.Blazor.State.csproj", "{AF79E00B-481B-4D0D-9E2F-09BD3B528735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State.Tests", "tests\BitzArt.Blazor.State.Tests\BitzArt.Blazor.State.Tests.csproj", "{97DF570A-9E40-440C-9360-BC3AA5E1A83E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitzArt.Blazor.State.Tests", "tests\BitzArt.Blazor.State.Tests\BitzArt.Blazor.State.Tests.csproj", "{97DF570A-9E40-440C-9360-BC3AA5E1A83E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State.SampleApp", "sample\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp.csproj", "{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitzArt.Blazor.State.SampleApp", "sample\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp.csproj", "{68862CF8-9CBD-4ACC-8EAF-D1EA32DB23FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.State.SampleApp.Client", "sample\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp.Client\BitzArt.Blazor.State.SampleApp.Client.csproj", "{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitzArt.Blazor.State.SampleApp.Client", "sample\BitzArt.Blazor.State.SampleApp\BitzArt.Blazor.State.SampleApp.Client\BitzArt.Blazor.State.SampleApp.Client.csproj", "{5EC46C1C-E2E1-4A1E-8CF5-BCE56F491ECF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BitzArt.Blazor.State.SampleApp", "BitzArt.Blazor.State.SampleApp", "{AF748271-0827-41E0-9ACC-F6B38227B85F}"
 EndProject
@@ -44,9 +44,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{853EC833-DEF
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.RenderStrategies", "src\BitzArt.Blazor.RenderStrategies\BitzArt.Blazor.RenderStrategies.csproj", "{201A4DFF-23FA-40C5-8920-9B9907D95E57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitzArt.Blazor.RenderStrategies", "src\BitzArt.Blazor.RenderStrategies\BitzArt.Blazor.RenderStrategies.csproj", "{201A4DFF-23FA-40C5-8920-9B9907D95E57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitzArt.Blazor.DotNet9Upgrade", "src\BitzArt.Blazor.DotNet9Upgrade\BitzArt.Blazor.DotNet9Upgrade.csproj", "{496F3A00-64FE-4A3F-B024-404FE5AFB1F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitzArt.Blazor.DotNet9Upgrade", "src\BitzArt.Blazor.DotNet9Upgrade\BitzArt.Blazor.DotNet9Upgrade.csproj", "{496F3A00-64FE-4A3F-B024-404FE5AFB1F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
