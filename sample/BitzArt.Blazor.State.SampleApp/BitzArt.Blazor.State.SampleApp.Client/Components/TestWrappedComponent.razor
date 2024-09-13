@@ -10,9 +10,9 @@
         {
             builder.OpenComponent<TestWrap>(0);
             builder.AddAttribute(1, "ChildContent",
-            (RenderFragment)(innerBuilder1 =>
+            (RenderFragment)(innerBuilder =>
             {
-                fragment.Invoke(innerBuilder1);
+                fragment.Invoke(innerBuilder);
             }));
             builder.CloseComponent();
         });
