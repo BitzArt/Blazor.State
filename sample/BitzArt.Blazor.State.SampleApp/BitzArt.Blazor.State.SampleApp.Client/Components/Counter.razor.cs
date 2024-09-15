@@ -11,10 +11,10 @@ public partial class Counter : PersistentComponentBase
     public string? Description { get; set; }
 
     [ComponentState]
-    public int Count { get; private set; } = 0;
+    private int _count = 0;
 
     [ComponentState]
-    public string InfoText { get; set; } = string.Empty;
+    private string InfoText = string.Empty;
 
     protected override async Task InitializeStateAsync()
     {
@@ -25,7 +25,7 @@ public partial class Counter : PersistentComponentBase
 
     private void IncrementCount(object? state)
     {
-        Count++;
+        _count++;
         StateHasChanged();
     }
 }

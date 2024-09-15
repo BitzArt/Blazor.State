@@ -4,10 +4,20 @@
 
 <PageTitle>Counter</PageTitle>
 
+<p>Current rendermode: @RendererInfo.Name</p>
+
+@if (!RendererInfo.IsInteractive)
+{
+    <p>Waiting for interactivity..</p>
+}
+
 <Counter Name="Counter 1"
-         Description="This counter is initialized while pre-rendering"
+         Description="This counter is rendered in all render modes"
          StateId="Counter1"/>
 
-<Counter Name="Counter 2"
-         Description="This counter is initialized while pre-rendering"
-         StateId="Counter2" />
+@if (RendererInfo.IsInteractive)
+{
+    <Counter Name="Counter 2"
+             Description="This counter is only rendered in interactive render modes"
+             StateId="Counter2" />
+}

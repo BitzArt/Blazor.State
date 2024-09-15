@@ -3,7 +3,7 @@
 /// <summary>
 /// Marks a property to be persisted between rendering environments.
 /// </summary>
-[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
 public class ComponentStateAttribute : Attribute
 {
 }

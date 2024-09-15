@@ -35,7 +35,17 @@ internal class PersistentComponentStateComposer(
             node.Add(property.PropertyInfo.Name, serializedValue);
         }
 
-        // Serialize descendants
+        // Serialize fields
+        foreach (var field in stateInfo.StateFields)
+        {
+            var value = field.FieldInfo.GetValue(component);
+            var serializedValue = JsonSerializer.SerializeToNode(
+                value, field.FieldInfo.FieldType, serializerOptions);
+
+            node.Add(field.FieldInfo.Name, serializedValue);
+        }
+
+        // Proceed to descendants
         foreach (var descendant in component.StateDescendants)
         {
             var descendantNode = SerializeStateNode(descendant);

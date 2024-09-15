@@ -127,6 +127,17 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
             var deserializedValue = value.Deserialize(propertyInfo.PropertyType, serializerOptions);
             propertyInfo.SetValue(PersistentComponent, deserializedValue);
         }
+
+        foreach (var field in stateInfo.StateFields)
+        {
+            var fieldInfo = field.FieldInfo;
+            var value = state[fieldInfo.Name];
+
+            if (value is null) continue;
+
+            var deserializedValue = value.Deserialize(fieldInfo.FieldType, serializerOptions);
+            fieldInfo.SetValue(PersistentComponent, deserializedValue);
+        }
     }
 
     private IEnumerable<string> GetComponentLocation(PersistentComponentBase component)
