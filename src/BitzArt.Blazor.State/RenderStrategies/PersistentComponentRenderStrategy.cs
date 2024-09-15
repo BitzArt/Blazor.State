@@ -19,9 +19,11 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
     protected override async Task RunInitAndSetParametersAsync()
     {
         // TODO: Dotnet 9
-        //if (Handle.RendererInfo.IsInteractive)
-        var shouldInitializeState = true;
+        //var isInteractive = Handle.RendererInfo.IsInteractive;
         var isInteractive = RendererInfo.IsInteractive;
+
+        var shouldInitializeState = true;
+
         if (isInteractive)
         {
             var restored = await TryRestoringStateAsync();
