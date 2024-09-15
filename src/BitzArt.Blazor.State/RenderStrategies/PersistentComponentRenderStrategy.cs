@@ -22,6 +22,9 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         await SetupStateAsync();
 
         await base.RunInitAndSetParametersAsync();
+
+        if (PersistentComponent.StateContainer is not null)
+            await PersistentComponent.StateContainer!.RefreshAsync();
     }
 
     private async Task WaitForPageStateAsync()
@@ -161,9 +164,6 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         await PersistentComponent.InitializeStateInternalAsync();
 
         StateInitialized = true;
-
-        if (PersistentComponent.StateContainer is not null)
-            await PersistentComponent.StateContainer!.RefreshAsync();
     }
 
     internal override void BuildRenderTree(RenderTreeBuilder builder)
