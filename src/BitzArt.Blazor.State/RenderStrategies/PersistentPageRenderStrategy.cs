@@ -57,7 +57,7 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
         builder.CloseComponent();
     }
 
-    protected override async Task TryRestoringStateAsync()
+    protected override async Task<bool> TryRestoringStateAsync()
     {
         var js = ServiceProvider.GetRequiredService<IJSRuntime>();
         var stateBase64 = await js.InvokeAsync<string?>("getInnerText", [PageStateElementId]);
@@ -79,14 +79,14 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
             ServiceProvider.GetRequiredService<ILogger<PersistentPageRenderStrategy>>()
                 .LogWarning("State container was not found on page. Initializing state as a fallback. Ignore this warning if prerendering is disabled for this page.");
 
-            await InitializeStateAsync();
-            return;
+            return false;
         }
 
         PageState = RestoreBase64State(stateBase64);
         StateInitialized = true;
 
         PersistentComponent.NotifyStateRestored();
+        return true;
     }
 
     private PersistentPageState RestoreBase64State(string base64State)
