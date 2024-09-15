@@ -46,7 +46,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         if (PersistentComponent.StateRoot!.StateInitialized) return;
 
         using var cts = new CancellationTokenSource();
-        PersistentComponent.StateRoot!.OnStateRestored += cts.Cancel;
+        PersistentComponent.StateRoot!.OnStateRestoredEvent += cts.Cancel;
         using var timeoutTask = Task.Delay(5000, cts.Token);
         if (cts.IsCancellationRequested) return;
         if (PersistentComponent.StateRoot!.StateInitialized) return;
@@ -98,7 +98,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         RestoreComponentState(state);
         StateInitialized = true;
 
-        PersistentComponent.NotifyStateRestored();
+        PersistentComponent.OnStateRestoredInternal();
         return true;
     }
 

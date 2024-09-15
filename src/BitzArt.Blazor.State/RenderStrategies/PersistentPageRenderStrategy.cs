@@ -85,7 +85,7 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
         PageState = RestoreBase64State(stateBase64);
         StateInitialized = true;
 
-        PersistentComponent.NotifyStateRestored();
+        PersistentComponent.OnStateRestoredInternal();
         return true;
     }
 
