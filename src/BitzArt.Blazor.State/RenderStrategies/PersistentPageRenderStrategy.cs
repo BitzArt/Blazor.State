@@ -57,7 +57,7 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
         builder.CloseComponent();
     }
 
-    protected override async Task RestoreStateAsync()
+    protected override async Task TryRestoringStateAsync()
     {
         var js = ServiceProvider.GetRequiredService<IJSRuntime>();
         var stateBase64 = await js.InvokeAsync<string?>("getInnerText", [PageStateElementId]);

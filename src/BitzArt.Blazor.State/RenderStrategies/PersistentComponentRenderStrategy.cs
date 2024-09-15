@@ -18,10 +18,19 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
 
     protected override async Task RunInitAndSetParametersAsync()
     {
-        // Setup state before initializing the component
-        await SetupStateAsync();
+        // TODO: Dotnet 9
+        //if (Handle.RendererInfo.IsInteractive)
+        var shouldInitializeState = true;
+        var isInteractive = RendererInfo.IsInteractive;
+        if (isInteractive)
+        {
+            var restored = await TryRestoringStateAsync();
+            shouldInitializeState = !restored;
+        }
 
         await base.RunInitAndSetParametersAsync();
+
+        if (shouldInitializeState) await InitializeStateAsync();
 
         if (PersistentComponent.StateContainer is not null)
             await PersistentComponent.StateContainer!.RefreshAsync();
@@ -56,23 +65,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
             throw new TimeoutException("Timed out: Page state took too long to restore.");
     }
 
-    protected virtual async Task SetupStateAsync()
-    {
-        if (StateInitialized) throw new InvalidOperationException("State has already been initialized for this component.");
-
-        // TODO: Dotnet 9
-        //if (Handle.RendererInfo.IsInteractive)
-        if (RendererInfo.IsInteractive)
-        {
-            await RestoreStateAsync();
-        }
-        else
-        {
-            await InitializeStateAsync();
-        }
-    }
-
-    protected virtual async Task RestoreStateAsync()
+    protected virtual async Task<bool> TryRestoringStateAsync()
     {
         if (ShouldWaitForRootStateRestore)
         {
@@ -88,10 +81,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         if (pageState is null)
         {
             // Page state not found.
-            // Initializing state as a fallback.
-
-            await InitializeStateAsync();
-            return;
+            return false;
         }
 
         var path = GetComponentLocation(PersistentComponent);
@@ -100,16 +90,14 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         if (state is null)
         {
             // Component state not found.
-            // Initializing state as a fallback.
-
-            await InitializeStateAsync();
-            return;
+            return false;
         }
         
         RestoreComponentState(state);
         StateInitialized = true;
 
         PersistentComponent.NotifyStateRestored();
+        return true;
     }
 
     protected void RestoreComponentState(JsonObject state)
