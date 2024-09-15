@@ -28,7 +28,8 @@ public static class BlazorStateBuilderExtensions
     /// </summary>
     public static IBlazorStateBuilder AddAssemblies(this IBlazorStateBuilder blazorStateBuilder, params Assembly[] assemblies)
     {
-        return blazorStateBuilder.AddAssemblies(assemblies);
+        foreach (var assembly in assemblies) blazorStateBuilder.AddAssembly(assembly);
+        return blazorStateBuilder;
     }
 
     /// <summary>
@@ -39,10 +40,7 @@ public static class BlazorStateBuilderExtensions
     /// <returns></returns>
     public static IBlazorStateBuilder AddAssemblies(this IBlazorStateBuilder blazorStateBuilder, IEnumerable<Assembly> assemblies)
     {
-        foreach (var assembly in assemblies)
-        {
-            blazorStateBuilder.AddAssembly(assembly);
-        }
+        foreach (var assembly in assemblies) blazorStateBuilder.AddAssembly(assembly);
         return blazorStateBuilder;
     }
 
