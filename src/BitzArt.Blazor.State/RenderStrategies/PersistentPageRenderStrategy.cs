@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
@@ -83,6 +82,16 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
         }
 
         PageState = RestoreBase64State(stateBase64);
+
+        var state = PageState.GetComponentState([]);
+
+        if (state is null)
+        {
+            // Root state not found.
+            return false;
+        }
+
+        RestoreComponentState(state);
         StateInitialized = true;
 
         PersistentComponent.OnStateRestoredInternal();
