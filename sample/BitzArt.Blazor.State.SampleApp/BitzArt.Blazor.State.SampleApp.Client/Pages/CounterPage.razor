@@ -6,7 +6,11 @@
 
 <p>Current rendermode: @RendererInfo.Name</p>
 
-State: @Text
+State: @Text <br/>
+
+Descendant components ready: @_descendantsInitializedCount <br/>
+
+Prerequisites status: @_prerequisitesText <br/>
 
 @if (!RendererInfo.IsInteractive)
 {
@@ -15,11 +19,13 @@ State: @Text
 
 <Counter Name="Counter 1"
          Description="This counter is rendered in all render modes"
+         OnStateInitialized="OnDescendantInitialized"
          StateId="Counter1"/>
 
 @if (RendererInfo.IsInteractive)
 {
     <Counter Name="Counter 2"
              Description="This counter is only rendered in interactive render modes"
+             OnStateInitialized="OnDescendantInitialized"
              StateId="Counter2" />
 }
