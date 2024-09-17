@@ -6,8 +6,14 @@ namespace BitzArt.Blazor.State;
 /// <summary>
 /// Represents a component that uses a <see cref="ComponentRenderStrategy"/> to render.
 /// </summary>
-public abstract class StrategyRenderedComponent : IStrategyRenderedComponent
+public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender, IHandleEvent
 {
+    /// <summary>
+    /// Indicates whether the component should wait for complete initialization
+    /// before proceeding with further rendering and initializing descendant components. <br/>
+    /// Default value is <c>false</c>.
+    /// </summary>
+    protected internal virtual bool ShouldWaitForCompleteInitialization => false;
 
     [Inject]
     internal IServiceProvider ServiceProvider
@@ -104,6 +110,19 @@ public abstract class StrategyRenderedComponent : IStrategyRenderedComponent
     // Gets the <see cref="ResourceAssetCollection"/> for the application.
     // </summary>
     //protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
+
+    /// <summary>
+    /// This method can be overridden to perform an action before the component lifecycle starts,
+    /// such as waiting for prerequisites to be met. <br/>
+    /// <p>
+    /// ⚠️ Temporary API, will be removed and replaced with the Prerequisites API,
+    /// which will ensure the prerequisites are met based on a set of defined conditions
+    /// that need to be met before the component lifecycle starts.
+    /// </p>
+    /// </summary>
+    /// <returns></returns>
+    protected internal virtual Task EnsurePrerequisitesAsync()
+        => Task.CompletedTask;
 
     /// <summary>
     /// Method invoked when the component is ready to start, having received its

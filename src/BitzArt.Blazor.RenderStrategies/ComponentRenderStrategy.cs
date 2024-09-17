@@ -109,11 +109,12 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
 
     protected virtual async Task RunInitAndSetParametersAsync()
     {
-        Component.OnInitializedInternal();
-        var task = Component.OnInitializedInternalAsync();
+        var task = InitAndSetParametersAsync();
 
         if (task.Status != TaskStatus.RanToCompletion && task.Status != TaskStatus.Canceled)
         {
+            if (!Component.ShouldWaitForCompleteInitialization) StateHasChanged();
+
             try
             {
                 await task;
@@ -134,6 +135,13 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
         }
 
         await CallOnParametersSetAsync();
+    }
+
+    protected virtual async Task InitAndSetParametersAsync()
+    {
+        await Component.EnsurePrerequisitesAsync();
+        Component.OnInitializedInternal();
+        await Component.OnInitializedInternalAsync();
     }
 
     private Task CallOnParametersSetAsync()
