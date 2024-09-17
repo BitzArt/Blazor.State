@@ -16,7 +16,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
     protected PersistentComponentBase PersistentComponent { get; private set; } = component;
     protected virtual bool ShouldWaitForRootStateRestore => true;
 
-    protected override async Task InitAndSetParametersAsync()
+    private protected override async Task InitAndSetParametersAsync()
     {
         // TODO: Dotnet 9
         //var isInteractive = Handle.RendererInfo.IsInteractive;
@@ -67,7 +67,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
             throw new TimeoutException("Timed out: Page state took too long to restore.");
     }
 
-    protected virtual async Task<bool> TryRestoringStateAsync()
+    private protected virtual async Task<bool> TryRestoringStateAsync()
     {
         if (ShouldWaitForRootStateRestore)
         {
@@ -102,7 +102,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         return true;
     }
 
-    protected void RestoreComponentState(JsonObject state)
+    private protected void RestoreComponentState(JsonObject state)
     {
         var stateInfo = ServiceProvider
             .GetRequiredService<PersistentComponentStatePropertyMap>()
@@ -148,7 +148,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         return location;
     }
 
-    protected async Task InitializeStateAsync()
+    private protected async Task InitializeStateAsync()
     {
         PersistentComponent.InitializeStateInternal();
         await PersistentComponent.InitializeStateInternalAsync();
