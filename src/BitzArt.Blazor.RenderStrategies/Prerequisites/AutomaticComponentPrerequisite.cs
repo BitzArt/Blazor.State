@@ -70,7 +70,7 @@ public class AutomaticComponentPrerequisite : ComponentPrerequisite
     /// </summary>
     /// <param name="period"><inheritdoc cref="Period" path="/summary"/></param>
     /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
-    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "In order to have inline documentation for this constructor")]
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "In order to have a distinct comment for this constructor")]
     public AutomaticComponentPrerequisite(int period, Func<bool> requirement)
         :base(requirement)
     {
