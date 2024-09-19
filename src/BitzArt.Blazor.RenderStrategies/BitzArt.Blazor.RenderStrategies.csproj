@@ -4,7 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<RootNamespace>BitzArt.Blazor.Render</RootNamespace>
+		<RootNamespace>BitzArt.Blazor.Render.Strategies</RootNamespace>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 
 		<PackageId>BitzArt.Blazor.RenderStrategies</PackageId>

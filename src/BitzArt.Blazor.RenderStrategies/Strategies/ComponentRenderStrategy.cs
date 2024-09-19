@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace BitzArt.Blazor.State;
+namespace BitzArt.Blazor;
 
 internal class ComponentRenderStrategy : IComponentRenderStrategy
 {
@@ -99,7 +99,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
         {
             _initialized = true;
 
-            return RunInitAndSetParametersAsync();
+            return InitAndSetParametersAsync();
         }
         else
         {
@@ -107,9 +107,13 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
         }
     }
 
-    private protected async Task RunInitAndSetParametersAsync()
+    private protected async Task InitAndSetParametersAsync()
     {
-        var task = InitAndSetParametersAsync();
+        await Component.Prerequisites.EnsureBeforeInitializationAsync();
+        Component.InitializeInternal();
+        await Component.InitializeAsyncInternal();
+
+        var task = OnInitializedAsync();
 
         if (task.Status != TaskStatus.RanToCompletion && task.Status != TaskStatus.Canceled)
         {
@@ -137,9 +141,9 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
         await CallOnParametersSetAsync();
     }
 
-    private protected virtual async Task InitAndSetParametersAsync()
+    private protected virtual async Task OnInitializedAsync()
     {
-        await Component.EnsurePrerequisitesAsync();
+        await Component.Prerequisites.EnsureAfterInitializationAsync();
         Component.OnInitializedInternal();
         await Component.OnInitializedInternalAsync();
     }
