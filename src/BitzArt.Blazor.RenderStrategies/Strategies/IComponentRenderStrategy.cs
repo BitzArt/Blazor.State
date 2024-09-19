@@ -1,9 +1,7 @@
-﻿
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace BitzArt.Blazor.State;
+namespace BitzArt.Blazor;
 
 /// <summary>
 /// Represents a render strategy for an ASP.NET Core component.

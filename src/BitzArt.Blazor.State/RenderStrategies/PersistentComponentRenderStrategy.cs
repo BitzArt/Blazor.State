@@ -16,7 +16,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
     protected PersistentComponentBase PersistentComponent { get; private set; } = component;
     protected virtual bool ShouldWaitForRootStateRestore => true;
 
-    private protected override async Task InitAndSetParametersAsync()
+    private protected override async Task OnInitializedAsync()
     {
         // TODO: Dotnet 9
         //var isInteractive = Handle.RendererInfo.IsInteractive;
@@ -30,7 +30,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
             shouldInitializeState = !restored;
         }
 
-        await base.InitAndSetParametersAsync();
+        await base.OnInitializedAsync();
 
         if (shouldInitializeState) await InitializeStateAsync();
 

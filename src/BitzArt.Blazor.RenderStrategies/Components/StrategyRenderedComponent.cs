@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace BitzArt.Blazor.State;
+namespace BitzArt.Blazor;
 
 /// <summary>
 /// Represents a component that uses a <see cref="ComponentRenderStrategy"/> to render.
 /// </summary>
 public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender, IHandleEvent
 {
+    /// <summary>
+    /// A collection of prerequisites that need to be met before the component lifecycle starts.
+    /// </summary>
+    protected internal ComponentPrerequisiteCollection Prerequisites { get; } = new();
+
     /// <summary>
     /// Indicates whether the component should wait for complete initialization
     /// before proceeding with further rendering and initializing descendant components. <br/>
@@ -112,21 +117,32 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     //protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
 
     /// <summary>
-    /// This method can be overridden to perform an action before the component lifecycle starts,
-    /// such as waiting for prerequisites to be met. <br/>
-    /// <p>
-    /// ⚠️ Temporary API, will be removed and replaced with the Prerequisites API,
-    /// which will ensure the prerequisites are met based on a set of defined conditions
-    /// that need to be met before the component lifecycle starts.
-    /// </p>
+    /// Method invoked when the component is ready to start, having received its
+    /// initial parameters from its parent in the render tree.
     /// </summary>
-    /// <returns></returns>
-    protected internal virtual Task EnsurePrerequisitesAsync()
-        => Task.CompletedTask;
+    protected virtual void Initialize()
+    {
+    }
+
+    internal void InitializeInternal()
+        => Initialize();
 
     /// <summary>
     /// Method invoked when the component is ready to start, having received its
     /// initial parameters from its parent in the render tree.
+    /// </summary>
+    protected virtual Task InitializeAsync()
+        => Task.CompletedTask;
+
+    internal Task InitializeAsyncInternal()
+        => InitializeAsync();
+
+    /// <summary>
+    /// Method invoked after the component has initialized.
+    /// By default, this method still running will not prevent the component from rendering. <br/>
+    /// To perform a synchronous action that should be completed before proceeding
+    /// to rendering the component and it's descendants,
+    /// use <see cref="Initialize">Initialize</see>
     /// </summary>
     protected virtual void OnInitialized()
     {
@@ -136,13 +152,13 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
         => OnInitialized();
 
     /// <summary>
-    /// Method invoked when the component is ready to start, having received its
-    /// initial parameters from its parent in the render tree.
-    ///
-    /// Override this method if you will perform an asynchronous operation and
-    /// want the component to refresh when that operation is completed.
+    /// Method invoked after the component has initialized.
+    /// By default, this method still running will not prevent the component from rendering. <br/>
+    /// To perform an asynchronous action that should be completed before proceeding
+    /// to rendering the component and it's descendants,
+    /// use <see cref="InitializeAsync">InitializeAsync</see>
     /// </summary>
-    /// <returns>A <see cref="Task"/> representing any asynchronous operation.</returns>
+    /// <returns>A <see cref="Task"/> representing the operation.</returns>
     protected virtual Task OnInitializedAsync()
         => Task.CompletedTask;
 
