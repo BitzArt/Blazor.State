@@ -53,9 +53,23 @@ public class ComponentPrerequisite
     /// <param name="requirement"><inheritdoc cref="Requirement" path="/summary"/></param>/>
     /// <param name="constraint"><inheritdoc cref="Constraint" path="/summary"/></param>
     /// <param name="callback"><inheritdoc cref="Callback" path="/summary"/></param>
+    /// <param name="allowComponentInitialization"><inheritdoc cref="AllowComponentInitialization" path="/summary"/></param>
+    public ComponentPrerequisite(Func<bool> requirement, Func<bool> constraint, ComponentPrerequisiteCallback callback, bool allowComponentInitialization)
+        : this(requirement, constraint, callback)
+    {
+        AllowComponentInitialization = allowComponentInitialization;
+    }
+
+    /// <summary>
+    /// <inheritdoc cref="ComponentPrerequisite(Func{bool},Func{bool})"/>
+    /// </summary>
+    /// <param name="requirement"><inheritdoc cref="Requirement" path="/summary"/></param>/>
+    /// <param name="constraint"><inheritdoc cref="Constraint" path="/summary"/></param>
+    /// <param name="callback"><inheritdoc cref="Callback" path="/summary"/></param>
     public ComponentPrerequisite(Func<bool> requirement, Func<bool> constraint, ComponentPrerequisiteCallback callback)
         : this(requirement, constraint)
     {
+        Callback = callback;
         callback.Attach(this);
     }
 
@@ -75,6 +89,19 @@ public class ComponentPrerequisite
     /// <inheritdoc cref="ComponentPrerequisite(Func{bool})"/>
     /// </summary>
     /// <param name="requirement"><inheritdoc cref="Requirement" path="/summary"/></param>
+    /// <param name="callback"><inheritdoc cref="Callback" path="/summary"/></param>
+    /// <param name="allowComponentInitialization"><inheritdoc cref="AllowComponentInitialization" path="/summary"/></param>
+    public ComponentPrerequisite(Func<bool> requirement, ComponentPrerequisiteCallback callback, bool allowComponentInitialization)
+        : this(requirement, allowComponentInitialization)
+    {
+        Callback = callback;
+        callback.Attach(this);
+    }
+
+    /// <summary>
+    /// <inheritdoc cref="ComponentPrerequisite(Func{bool})"/>
+    /// </summary>
+    /// <param name="requirement"><inheritdoc cref="Requirement" path="/summary"/></param>
     /// <param name="allowComponentInitialization"><inheritdoc cref="AllowComponentInitialization" path="/summary"/></param>
     public ComponentPrerequisite(Func<bool> requirement, bool allowComponentInitialization)
         : this(requirement)
@@ -88,8 +115,8 @@ public class ComponentPrerequisite
     /// <param name="requirement"><inheritdoc cref="Requirement" path="/summary"/></param>
     /// <param name="constraint"><inheritdoc cref="Constraint" path="/summary"/></param>
     public ComponentPrerequisite(Func<bool> requirement, Func<bool> constraint)
+        :this(requirement)
     {
-        Requirement = requirement;
         Constraint = constraint;
     }
 

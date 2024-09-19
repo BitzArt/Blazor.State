@@ -37,6 +37,21 @@ public sealed class ComponentPrerequisiteCollection
     /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
     /// <param name="constraint"><inheritdoc cref="ComponentPrerequisite.Constraint" path="/summary"/></param>
     /// <param name="callback"><inheritdoc cref="ComponentPrerequisite.Callback" path="/summary"/></param>
+    /// <param name="allowComponentInitialization"><inheritdoc cref="ComponentPrerequisite.AllowComponentInitialization" path="/summary"/></param>
+    /// <returns>The added prerequisite.</returns>
+    public ComponentPrerequisite AddManual(Func<bool> requirement, Func<bool> constraint, ComponentPrerequisiteCallback callback, bool allowComponentInitialization)
+    {
+        var prerequisite = new ComponentPrerequisite(requirement, constraint, callback, allowComponentInitialization);
+        Add(prerequisite);
+        return prerequisite;
+    }
+
+    /// <summary>
+    /// Adds a <see cref="ComponentPrerequisite"/> to the collection.
+    /// </summary>
+    /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
+    /// <param name="constraint"><inheritdoc cref="ComponentPrerequisite.Constraint" path="/summary"/></param>
+    /// <param name="callback"><inheritdoc cref="ComponentPrerequisite.Callback" path="/summary"/></param>
     /// <returns>The added prerequisite.</returns>
     public ComponentPrerequisite AddManual(Func<bool> requirement, Func<bool> constraint, ComponentPrerequisiteCallback callback)
     {
@@ -55,6 +70,20 @@ public sealed class ComponentPrerequisiteCollection
     public ComponentPrerequisite AddManual(Func<bool> requirement, Func<bool> constraint, bool allowComponentInitialization)
     {
         var prerequisite = new ComponentPrerequisite(requirement, constraint, allowComponentInitialization);
+        Add(prerequisite);
+        return prerequisite;
+    }
+
+    /// <summary>
+    /// Adds a <see cref="ComponentPrerequisite"/> to the collection.
+    /// </summary>
+    /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
+    /// <param name="callback"><inheritdoc cref="ComponentPrerequisite.Callback" path="/summary"/></param>
+    /// <param name="allowComponentInitialization"><inheritdoc cref="ComponentPrerequisite.AllowComponentInitialization" path="/summary"/></param>
+    /// <returns>The added prerequisite.</returns>
+    public ComponentPrerequisite AddManual(Func<bool> requirement, ComponentPrerequisiteCallback callback, bool allowComponentInitialization)
+    {
+        var prerequisite = new ComponentPrerequisite(requirement, callback, allowComponentInitialization);
         Add(prerequisite);
         return prerequisite;
     }
@@ -104,6 +133,22 @@ public sealed class ComponentPrerequisiteCollection
     /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
     /// <param name="constraint"><inheritdoc cref="ComponentPrerequisite.Constraint" path="/summary"/></param>
     /// <param name="callback"><inheritdoc cref="ComponentPrerequisite.Callback" path="/summary"/></param>
+    /// <param name="allowComponentInitialization"><inheritdoc cref="ComponentPrerequisite.AllowComponentInitialization" path="/summary"/></param>
+    /// <returns>The added prerequisite.</returns>
+    public AutomaticComponentPrerequisite AddAuto(int period, Func<bool> requirement, Func<bool> constraint, ComponentPrerequisiteCallback callback, bool allowComponentInitialization)
+    {
+        var prerequisite = new AutomaticComponentPrerequisite(period, requirement, constraint, callback, allowComponentInitialization);
+        Add(prerequisite);
+        return prerequisite;
+    }
+
+    /// <summary>
+    /// Adds an <see cref="AutomaticComponentPrerequisite"/> to the collection.
+    /// </summary>
+    /// <param name="period"><inheritdoc cref="AutomaticComponentPrerequisite.Period" path="/summary"/></param>
+    /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
+    /// <param name="constraint"><inheritdoc cref="ComponentPrerequisite.Constraint" path="/summary"/></param>
+    /// <param name="callback"><inheritdoc cref="ComponentPrerequisite.Callback" path="/summary"/></param>
     /// <returns>The added prerequisite.</returns>
     public AutomaticComponentPrerequisite AddAuto(int period, Func<bool> requirement, Func<bool> constraint, ComponentPrerequisiteCallback callback)
     {
@@ -123,6 +168,21 @@ public sealed class ComponentPrerequisiteCollection
     public ComponentPrerequisite AddAuto(int period, Func<bool> requirement, Func<bool> constraint, bool allowComponentInitialization)
     {
         var prerequisite = new AutomaticComponentPrerequisite(period, requirement, constraint, allowComponentInitialization);
+        Add(prerequisite);
+        return prerequisite;
+    }
+
+    /// <summary>
+    /// Adds an <see cref="AutomaticComponentPrerequisite"/> to the collection.
+    /// </summary>
+    /// <param name="period"><inheritdoc cref="AutomaticComponentPrerequisite.Period" path="/summary"/></param>
+    /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
+    /// <param name="callback"><inheritdoc cref="ComponentPrerequisite.Callback" path="/summary"/></param>
+    /// <param name="allowComponentInitialization"><inheritdoc cref="ComponentPrerequisite.AllowComponentInitialization" path="/summary"/></param>
+    /// <returns>The added prerequisite.</returns>
+    public ComponentPrerequisite AddAuto(int period, Func<bool> requirement, ComponentPrerequisiteCallback callback, bool allowComponentInitialization)
+    {
+        var prerequisite = new AutomaticComponentPrerequisite(period, requirement, callback, allowComponentInitialization);
         Add(prerequisite);
         return prerequisite;
     }

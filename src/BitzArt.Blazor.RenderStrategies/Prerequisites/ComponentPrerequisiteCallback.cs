@@ -6,15 +6,16 @@
 /// and then <see cref="Invoke">invoked</see>
 /// to notify all of it's attached prerequisites of requirement completion.
 /// </summary>
-public readonly struct ComponentPrerequisiteCallback
+public class ComponentPrerequisiteCallback
 {
-    private readonly List<ComponentPrerequisite> _prerequisites = [];
+    private readonly List<ComponentPrerequisite> _prerequisites;
 
     /// <summary>
     /// Creates a new instance of <see cref="ComponentPrerequisiteCallback"/>.
     /// </summary>
     public ComponentPrerequisiteCallback()
     {
+        _prerequisites = [];
     }
 
     /// <summary>
