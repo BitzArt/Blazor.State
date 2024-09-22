@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace BitzArt.Blazor.State;
 
@@ -11,14 +9,20 @@ public abstract class PersistentComponentBase : StrategyRenderedComponent
 {
     internal override bool ShouldUseDefaultStrategy => false;
 
+    /// <summary>
+    /// Root stateful component.
+    /// </summary>
     [CascadingParameter(Name = "StateRoot")]
-    internal PersistentComponentBase? StateRoot { get; set; }
+    public PersistentComponentBase? StateRoot { get; internal set; }
 
+    /// <summary>
+    /// Parent stateful component.
+    /// </summary>
     [CascadingParameter(Name = "StateParent")]
-    internal PersistentComponentBase? StateParent
+    public PersistentComponentBase? StateParent
     {
         get => stateParent;
-        set
+        internal set
         {
             ArgumentNullException.ThrowIfNull(value);
             stateParent = value;
