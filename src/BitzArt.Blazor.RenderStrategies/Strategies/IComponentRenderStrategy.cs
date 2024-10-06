@@ -8,6 +8,10 @@ namespace BitzArt.Blazor;
 /// </summary>
 public interface IComponentRenderStrategy
 {
+    internal bool InitializeCompleted { get; }
+
+    internal bool OnInitializedCompleted { get; }
+
     internal IServiceProvider ServiceProvider { get; set; }
 
     internal RenderHandle Handle { get; set; }

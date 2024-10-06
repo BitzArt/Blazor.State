@@ -14,6 +14,16 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     protected internal ComponentPrerequisiteCollection Prerequisites { get; } = new();
 
     /// <summary>
+    /// Indicates whether the component has completed own initialization (<see cref="Initialize"/> and <see cref="InitializeAsync"/>).
+    /// </summary>
+    protected internal bool InitializeCompleted => RenderStrategy!.InitializeCompleted;
+
+    /// <summary>
+    /// Indicates whether the component has completed own initialization, as well as <see cref="OnInitialized"/> and <see cref="OnInitializedAsync"/>.
+    /// </summary>
+    protected internal bool OnInitializedCompleted => RenderStrategy!.OnInitializedCompleted;
+
+    /// <summary>
     /// Indicates whether the component should wait for complete initialization
     /// before proceeding with further rendering and initializing descendant components. <br/>
     /// Default value is <c>false</c>.
