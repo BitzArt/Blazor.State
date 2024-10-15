@@ -69,8 +69,6 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
     {
         _hasPendingQueuedRender = false;
         _hasNeverRendered = false;
-
-        Console.WriteLine($"{Component.GetType().Name}: Render");
     }
 
     internal void OnRendered()

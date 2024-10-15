@@ -19,8 +19,6 @@ internal class PersistentComponentStateComposer(
 
     private JsonObject? SerializeStateNode(PersistentComponentBase component)
     {
-        Console.WriteLine($"Serializing state node: {component.GetType().Name}");
-
         var node = new JsonObject();
 
         // Serialize properties
