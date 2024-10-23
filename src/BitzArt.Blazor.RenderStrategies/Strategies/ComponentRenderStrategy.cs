@@ -13,7 +13,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
     private bool _hasCalledOnAfterRender;
 
     public bool InitializeCompleted { get; private set; } = false;
-    public bool OnInitializedCompleted { get; private set; } = false;
+    public bool IsReady { get; private set; } = false;
 
     //TODO: Dotnet 9
     public RendererInfo RendererInfo { get; set; } = null!;
@@ -134,7 +134,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
         await Component.Prerequisites.EnsureAfterInitializationAsync();
         Component.OnInitializedInternal();
         await Component.OnInitializedInternalAsync();
-        OnInitializedCompleted = true;
+        IsReady = true;
     }
 
     private Task CallOnParametersSetAsync()
