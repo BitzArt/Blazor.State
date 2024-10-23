@@ -40,14 +40,8 @@ internal class PageStateContainer : StrategyRenderedComponent
     internal async Task RefreshAsync()
     {
         var task = InvokeAsync(StateHasChanged);
-        try
-        {
-            if (!task.IsCanceled && task.Status != TaskStatus.RanToCompletion)
-                await task;
-        }
-        catch
-        {
-            if (!task.IsCanceled) throw;
-        }
+
+        if (!task.IsCanceled && task.Status != TaskStatus.RanToCompletion)
+            await task.IgnoreCancellation();
     }
 }

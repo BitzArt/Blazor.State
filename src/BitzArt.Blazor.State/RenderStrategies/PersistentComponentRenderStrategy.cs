@@ -51,17 +51,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         if (cts.IsCancellationRequested) return;
         if (PersistentComponent.StateRoot!.StateInitialized) return;
 
-        try
-        {
-            await timeoutTask;
-        }
-        catch
-        {
-            if (!timeoutTask.IsCanceled)
-            {
-                throw;
-            }
-        }
+        await timeoutTask.IgnoreCancellation();
 
         if (timeoutTask.Status == TaskStatus.RanToCompletion)
             throw new TimeoutException("Timed out: Page state took too long to restore.");
