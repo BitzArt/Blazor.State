@@ -27,7 +27,7 @@ public class ComponentPrerequisiteCallback
 
         foreach (var prerequisite in _prerequisites)
         {
-            prerequisite.NotifyCompeltion();
+            prerequisite.NotifyCompletion();
         }
     }
 

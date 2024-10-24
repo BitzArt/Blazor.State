@@ -196,7 +196,7 @@ public class ComponentPrerequisite
     /// <summary>
     /// Notifies the completion of the prerequisite.
     /// </summary>
-    public void NotifyCompeltion()
+    public void NotifyCompletion()
     {
         _cancellationTokenSource?.Cancel();
     }
