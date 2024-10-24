@@ -16,7 +16,7 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     /// <summary>
     /// Indicates whether the component has completed own initialization (<see cref="Initialize"/> and <see cref="InitializeAsync"/>).
     /// </summary>
-    protected internal bool InitializeCompleted => RenderStrategy!.InitializeCompleted;
+    protected internal bool IsInitialized => RenderStrategy!.IsInitialized;
 
     /// <summary>
     /// Indicates whether the component has completed own initialization, as well as <see cref="OnInitialized"/> and <see cref="OnInitializedAsync"/>.

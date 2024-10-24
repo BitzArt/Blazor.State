@@ -12,7 +12,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
     private bool _hasPendingQueuedRender;
     private bool _hasCalledOnAfterRender;
 
-    public bool InitializeCompleted { get; private set; } = false;
+    public bool IsInitialized { get; private set; } = false;
     public bool IsReady { get; private set; } = false;
 
     //TODO: Dotnet 9
@@ -113,7 +113,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
         await Component.Prerequisites.EnsureBeforeInitializationAsync();
         Component.InitializeInternal();
         await Component.InitializeAsyncInternal();
-        InitializeCompleted = true;
+        IsInitialized = true;
 
         var task = OnInitializedAsync();
 
