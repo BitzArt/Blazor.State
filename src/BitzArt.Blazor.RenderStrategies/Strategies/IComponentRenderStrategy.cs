@@ -8,9 +8,9 @@ namespace BitzArt.Blazor;
 /// </summary>
 public interface IComponentRenderStrategy
 {
-    internal bool InitializeCompleted { get; }
+    internal bool IsInitialized { get; }
 
-    internal bool OnInitializedCompleted { get; }
+    internal bool IsReady { get; }
 
     internal IServiceProvider ServiceProvider { get; set; }
 

@@ -170,21 +170,11 @@ public class ComponentPrerequisite
         {
             timeoutTask ??= Task.Delay(Timeout, _cancellationToken!.Value);
 
-            try
-            {
-                await WaitAsync(timeoutTask);
+            await WaitAsync(timeoutTask.IgnoreCancellation());
 
-                if (timeoutTask.Status == TaskStatus.RanToCompletion)
-                {
-                    throw new TimeoutException("The prerequisite has not been met within the specified timeout.");
-                }
-            }
-            catch
+            if (timeoutTask.Status == TaskStatus.RanToCompletion)
             {
-                if (!timeoutTask.IsCanceled)
-                {
-                    throw;
-                }
+                throw new TimeoutException("The prerequisite has not been met within the specified timeout.");
             }
 
             if (Requirement.Invoke()) return;
