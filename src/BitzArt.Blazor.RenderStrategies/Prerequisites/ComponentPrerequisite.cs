@@ -25,6 +25,10 @@ public class ComponentPrerequisite
     /// </summary>
     public int Timeout { get; set; } = 5000;
 
+    private bool _completed = false;
+
+    private bool _waiting = false;
+
     /// <summary>
     /// Determines whether this prerequisite allows initialization of the component
     /// even if the prerequisite is not met. <br/><br/>
@@ -135,12 +139,17 @@ public class ComponentPrerequisite
         {
             if (!ConstraintMet()) return;
 
-            if (Requirement.Invoke()) return;
+            if (Requirement.Invoke())
+            {
+                _completed = true;
+                return;
+            }
 
             if (_cancellationToken is null)
             {
                 _cancellationTokenSource = new CancellationTokenSource();
                 _cancellationToken = _cancellationTokenSource.Token;
+                _waiting = true;
             }
 
             await EnsureRequirementAsync();
@@ -148,6 +157,7 @@ public class ComponentPrerequisite
         finally
         {
             _cancellationTokenSource?.Dispose();
+            _waiting = false;
         }
     }
 
@@ -161,7 +171,13 @@ public class ComponentPrerequisite
 
     private protected virtual async Task EnsureRequirementAsync(Task? timeoutTask = null)
     {
-        if (Requirement.Invoke()) return;
+        if (_completed) return;
+
+        if (Requirement.Invoke())
+        {
+            _completed = true;
+            return;
+        }
 
         // Only dispose the timeout task if it was created in this method invocation.
         var dispose = timeoutTask is null;
@@ -177,7 +193,11 @@ public class ComponentPrerequisite
                 throw new TimeoutException("The prerequisite has not been met within the specified timeout.");
             }
 
-            if (Requirement.Invoke()) return;
+            if (Requirement.Invoke())
+            {
+                _completed = true;
+                return;
+            }
 
             await EnsureRequirementAsync(timeoutTask);
         }
@@ -198,6 +218,8 @@ public class ComponentPrerequisite
     /// </summary>
     public void NotifyCompletion()
     {
+        if (!_waiting || _completed) return;
+
         _cancellationTokenSource?.Cancel();
     }
 }
