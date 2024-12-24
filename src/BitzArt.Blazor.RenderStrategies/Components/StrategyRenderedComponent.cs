@@ -37,17 +37,6 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
         set => RenderStrategy!.ServiceProvider = value;
     }
 
-    // TODO: Dotnet 9
-    /// <summary>
-    /// To be replaced with the default implementation with the release of dotnet 9.
-    /// </summary>
-    [Inject]
-    public RendererInfo RendererInfo
-    {
-        get => RenderStrategy!.RendererInfo;
-        internal set => RenderStrategy!.RendererInfo = value;
-    }
-
     internal virtual bool ShouldUseDefaultStrategy => true;
 
     private IComponentRenderStrategy? renderStrategy;
@@ -98,11 +87,10 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     internal void BuildRenderTreeInternal(RenderTreeBuilder builder)
         => BuildRenderTree(builder);
 
-    //TODO: Dotnet 9
-    // <summary>
-    // Gets the <see cref="IComponentRenderMode"/> assigned to this component.
-    // </summary>
-    //protected IComponentRenderMode? AssignedRenderMode => RenderStrategy!.AssignedRenderMode;
+    /// <summary>
+    /// Gets the <see cref="IComponentRenderMode"/> assigned to this component.
+    /// </summary>
+    protected IComponentRenderMode? AssignedRenderMode => RenderStrategy!.AssignedRenderMode;
 
     /// <summary>
     /// Returns a flag to indicate whether the component should render.
@@ -114,17 +102,15 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     internal bool ShouldRenderInternal()
         => ShouldRender();
 
-    // TODO: Dotnet 9
-    // <summary>
-    // Gets the <see cref="Microsoft.AspNetCore.Components.RendererInfo"/> the component is running on.
-    // </summary>
-    //protected RendererInfo RendererInfo => RenderStrategy!.Handle.RendererInfo;
+    /// <summary>
+    /// Gets the <see cref="Microsoft.AspNetCore.Components.RendererInfo"/> the component is running on.
+    /// </summary>
+    protected RendererInfo RendererInfo => RenderStrategy!.Handle.RendererInfo;
 
-    // TODO: Dotnet 9
-    // <summary>
-    // Gets the <see cref="ResourceAssetCollection"/> for the application.
-    // </summary>
-    //protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
+    /// <summary>
+    /// Gets the <see cref="ResourceAssetCollection"/> for the application.
+    /// </summary>
+    protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
 
     /// <summary>
     /// Method invoked when the component is ready to start, having received its

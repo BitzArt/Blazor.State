@@ -30,8 +30,6 @@ public static class AddBlazorStateExtension
 
         services.AddSingleton<PersistentComponentStateComposer>();
 
-        services.AddRendererInfo();
-
         return services;
     }
 }

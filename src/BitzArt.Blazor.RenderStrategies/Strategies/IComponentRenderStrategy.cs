@@ -15,8 +15,8 @@ public interface IComponentRenderStrategy
     internal IServiceProvider ServiceProvider { get; set; }
 
     internal RenderHandle Handle { get; set; }
-
-    internal RendererInfo RendererInfo { get; set; }
+    
+    internal IComponentRenderMode? AssignedRenderMode { get; }
 
     internal void Attach(RenderHandle renderHandle);
 

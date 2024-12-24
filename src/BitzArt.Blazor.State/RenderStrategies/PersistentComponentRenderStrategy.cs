@@ -18,9 +18,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
 
     private protected override async Task OnInitializedAsync()
     {
-        // TODO: Dotnet 9
-        //var isInteractive = Handle.RendererInfo.IsInteractive;
-        var isInteractive = RendererInfo.IsInteractive;
+        var isInteractive = Handle.RendererInfo.IsInteractive;
 
         var shouldInitializeState = true;
 
@@ -123,7 +121,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         }
     }
 
-    private IEnumerable<string> GetComponentLocation(PersistentComponentBase component)
+    private static List<string> GetComponentLocation(PersistentComponentBase component)
     {
         List<string> location = [];
 

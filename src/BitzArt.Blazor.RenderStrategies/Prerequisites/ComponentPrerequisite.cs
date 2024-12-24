@@ -6,13 +6,17 @@
 /// For a prerequisite type that automatically checks for completion at a specified interval,
 /// see <see cref="AutomaticComponentPrerequisite"/>.
 /// </summary>
-public class ComponentPrerequisite
+/// <remarks>
+/// Creates a new instance of <see cref="ComponentPrerequisite"/>.
+/// </remarks>
+/// <param name="requirement"><inheritdoc cref="Requirement" path="/summary"/></param>
+public class ComponentPrerequisite(Func<bool> requirement)
 {
     /// <summary>
     /// A function that returns a boolean value indicating
     /// whether the prerequisite is met.
     /// </summary>
-    public Func<bool> Requirement { get; set; }
+    public Func<bool> Requirement { get; set; } = requirement;
 
     /// <summary>
     /// A function that returns a boolean value indicating
@@ -122,15 +126,6 @@ public class ComponentPrerequisite
         :this(requirement)
     {
         Constraint = constraint;
-    }
-
-    /// <summary>
-    /// Creates a new instance of <see cref="ComponentPrerequisite"/>.
-    /// </summary>
-    /// <param name="requirement"><inheritdoc cref="Requirement" path="/summary"/></param>
-    public ComponentPrerequisite(Func<bool> requirement)
-    {
-        Requirement = requirement;
     }
 
     internal async Task EnsureAsync()

@@ -5,8 +5,7 @@ namespace BitzArt.Blazor;
 
 internal class ComponentRenderStrategy : IComponentRenderStrategy
 {
-    // TODO: Dotnet 9
-    // private (IComponentRenderMode? mode, bool cached) _renderMode;
+    private (IComponentRenderMode? mode, bool cached) _renderMode;
     private bool _initialized;
     private bool _hasNeverRendered = true;
     private bool _hasPendingQueuedRender;
@@ -14,9 +13,6 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
 
     public bool IsInitialized { get; private set; } = false;
     public bool IsReady { get; private set; } = false;
-
-    //TODO: Dotnet 9
-    public RendererInfo RendererInfo { get; set; } = null!;
 
     public RenderHandle Handle { get; set; }
 
@@ -33,8 +29,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
 
     public IServiceProvider ServiceProvider { get; set; } = null!;
 
-    // TODO: Dotnet 9
-    /*internal IComponentRenderMode? AssignedRenderMode
+    IComponentRenderMode? IComponentRenderStrategy.AssignedRenderMode
     {
         get
         {
@@ -46,7 +41,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
 
             return _renderMode.mode;
         }
-    }*/
+    }
 
     public void SetCustomRenderFragment(Action<RenderTreeBuilder, RenderFragment> customAction)
         => _customRenderFragment = builder => customAction(builder, _renderFragment);
@@ -71,7 +66,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
         _hasNeverRendered = false;
     }
 
-    internal void OnRendered()
+    internal static void OnRendered()
     {
     }
 

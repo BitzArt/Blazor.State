@@ -1,15 +1,10 @@
 ﻿namespace BitzArt.Blazor.State;
 
-internal class PersistentComponentStatePropertyMap
+internal class PersistentComponentStatePropertyMap(IEnumerable<Type> componentTypes)
 {
-    private readonly Dictionary<Type, PersistentComponentStateInfo> Components;
-
-    public PersistentComponentStatePropertyMap(IEnumerable<Type> componentTypes)
-    {
-        Components = componentTypes
+    private readonly Dictionary<Type, PersistentComponentStateInfo> Components = componentTypes
             .Select(x => new PersistentComponentStateInfo(x))
             .ToDictionary(x => x.ComponentType);
-    }
 
     public PersistentComponentStateInfo GetComponentStateInfo(Type componentType)
     {

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFrameworks>net9.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<RootNamespace>BitzArt.Blazor.Render.Strategies</RootNamespace>
@@ -32,12 +32,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="BitzArt.CoreExtensions" Version="1.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
-		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.8" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\BitzArt.Blazor.DotNet9Upgrade\BitzArt.Blazor.DotNet9Upgrade.csproj" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.*" />
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.*" />
 	</ItemGroup>
 
 </Project>
