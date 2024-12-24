@@ -5,8 +5,6 @@
 
 ## Overview
 
-![Prerelease](https://img.shields.io/badge/prerelease%2C_work_in_progress-ffa624?style=for-the-badge)
-
 **BitzArt.Blazor.State** allows persisting component state across rendering environments with Blazor.
 
 Refer to the [documentation](https://bitzart.github.io/Blazor.State) for more information.
