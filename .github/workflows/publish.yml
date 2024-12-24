@@ -40,6 +40,5 @@ jobs:
 
       - name: Push
         run: |
-          dotnet nuget push BitzArt.Blazor.DotNet9Upgrade.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_APIKEY}
           dotnet nuget push BitzArt.Blazor.RenderStrategies.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_APIKEY}
           dotnet nuget push BitzArt.Blazor.State.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_APIKEY}
