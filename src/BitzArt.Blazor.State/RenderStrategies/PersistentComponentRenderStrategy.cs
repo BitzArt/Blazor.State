@@ -38,9 +38,6 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
 
     private async Task WaitForPageStateAsync()
     {
-        // TODO: Remove this line
-        Console.WriteLine($"{PersistentComponent.GetType().Name}: Waiting for Page State");
-
         // This should not normally happen
         if (PersistentComponent.IsStateRoot) throw new UnreachableException();
 
