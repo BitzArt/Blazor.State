@@ -28,7 +28,7 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     /// before proceeding with further rendering and initializing descendant components. <br/>
     /// Default value is <c>false</c>.
     /// </summary>
-    protected internal virtual bool ShouldWaitForCompleteInitialization => false;
+    protected internal virtual bool ShouldWaitForCompleteInitialization => RenderStrategy!.ShouldWaitForCompleteInitialization;
 
     [Inject]
     internal IServiceProvider ServiceProvider

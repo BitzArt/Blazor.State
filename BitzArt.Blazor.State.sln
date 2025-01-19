@@ -20,6 +20,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56DAC196-1ECD-4485-A227-1A239FCC9866}"
 	ProjectSection(SolutionItems) = preProject
 		docs\src\01.introduction.md = docs\src\01.introduction.md
+		docs\src\02.getting-started.md = docs\src\02.getting-started.md
+		docs\src\03.state-hierarchy.md = docs\src\03.state-hierarchy.md
+		docs\src\04.persistent-component-lifecycle.md = docs\src\04.persistent-component-lifecycle.md
 		docs\src\SUMMARY.md = docs\src\SUMMARY.md
 	EndProjectSection
 EndProject

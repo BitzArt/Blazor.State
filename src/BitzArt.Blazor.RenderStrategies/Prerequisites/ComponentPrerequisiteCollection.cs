@@ -262,7 +262,7 @@ public sealed class ComponentPrerequisiteCollection
     {
         var success = _prerequisites.Remove(prerequisite);
 
-        if (!success)throw new InvalidOperationException(
+        if (!success) throw new InvalidOperationException(
             "The specified prerequisite was not found in the collection.");
 
         Unmap(prerequisite);

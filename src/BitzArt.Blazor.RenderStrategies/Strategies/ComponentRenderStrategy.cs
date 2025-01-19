@@ -14,6 +14,8 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
     public bool IsInitialized { get; private set; } = false;
     public bool IsReady { get; private set; } = false;
 
+    public virtual bool ShouldWaitForCompleteInitialization => false;
+
     public RenderHandle Handle { get; set; }
 
     private RenderFragment RenderFragment
@@ -33,7 +35,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
     {
         get
         {
-            
+
             if (!_renderMode.cached)
             {
                 _renderMode = (Handle.RenderMode, true);

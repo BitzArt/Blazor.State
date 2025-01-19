@@ -12,7 +12,7 @@ public partial class Counter : PersistentComponentBase
 
     [Parameter]
     public EventCallback<object> OnStateInitialized { get; set; }
-    
+
     [ComponentState]
     private int _count = 0;
 

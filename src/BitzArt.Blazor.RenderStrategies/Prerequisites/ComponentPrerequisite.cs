@@ -123,7 +123,7 @@ public class ComponentPrerequisite(Func<bool> requirement)
     /// <param name="requirement"><inheritdoc cref="Requirement" path="/summary"/></param>
     /// <param name="constraint"><inheritdoc cref="Constraint" path="/summary"/></param>
     public ComponentPrerequisite(Func<bool> requirement, Func<bool> constraint)
-        :this(requirement)
+        : this(requirement)
     {
         Constraint = constraint;
     }

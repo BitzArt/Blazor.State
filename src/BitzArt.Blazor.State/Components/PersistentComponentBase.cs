@@ -74,7 +74,7 @@ public abstract class PersistentComponentBase : StrategyRenderedComponent
     public string? StateId { get; set; }
 
     internal PersistentComponentPositionIdentifier PositionIdentifier
-        => StateId is not null ? new (StateId) : new(GetType());
+        => StateId is not null ? new(StateId) : new(GetType());
 
     private PersistentComponentRenderStrategy PersistentRenderStrategy
         => (PersistentComponentRenderStrategy)RenderStrategy!;
@@ -99,6 +99,16 @@ public abstract class PersistentComponentBase : StrategyRenderedComponent
 
     internal Task InitializeStateInternalAsync()
         => InitializeStateAsync();
+
+    internal void OnStateRestoreFailedInternal()
+    {
+        StateRestoreFailed = true;
+        OnStateRestoreFailedEvent?.Invoke();
+    }
+
+    internal delegate void OnStateRestoreFailedHandler();
+    internal event OnStateRestoreFailedHandler? OnStateRestoreFailedEvent;
+    internal bool StateRestoreFailed = false;
 
     internal void OnStateRestoredInternal()
     {

@@ -44,12 +44,28 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         if (PersistentComponent.StateRoot!.StateInitialized) return;
 
         using var cts = new CancellationTokenSource();
+
+        bool failed = PersistentComponent.StateRoot!.StateRestoreFailed;
+        if (failed) throw new InvalidOperationException("Failed to restore page state.");
+
         PersistentComponent.StateRoot!.OnStateRestoredEvent += cts.Cancel;
+        PersistentComponent.StateRoot!.OnStateRestoreFailedEvent += () =>
+        {
+            failed = true;
+            cts.Cancel();
+        };
+
+        failed = PersistentComponent.StateRoot!.StateRestoreFailed;
+        if (failed) throw new InvalidOperationException("Failed to restore page state.");
+
         using var timeoutTask = Task.Delay(5000, cts.Token);
+
         if (cts.IsCancellationRequested) return;
         if (PersistentComponent.StateRoot!.StateInitialized) return;
 
         await timeoutTask.IgnoreCancellation();
+
+        if (failed) throw new InvalidOperationException("Failed to restore page state.");
 
         if (timeoutTask.Status == TaskStatus.RanToCompletion)
             throw new TimeoutException("Timed out: Page state took too long to restore.");
@@ -64,7 +80,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
 
         var rootStrategy = PersistentComponent.StateRoot!.RenderStrategy;
         if (rootStrategy is not PersistentPageRenderStrategy pageStrategy)
-            throw new InvalidOperationException("The root stateful component is not a page. Make sure your page inherits from PersistentComponentBase.");
+            throw new InvalidOperationException("The root stateful component is not a page. Make sure your pages containing persistent components also inherit from PersistentComponentBase.");
 
         var pageState = pageStrategy.PageState;
 
@@ -79,10 +95,11 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
 
         if (state is null)
         {
+            PersistentComponent.OnStateRestoreFailedInternal();
             // Component state not found.
             return false;
         }
-        
+
         RestoreComponentState(state);
         StateInitialized = true;
 

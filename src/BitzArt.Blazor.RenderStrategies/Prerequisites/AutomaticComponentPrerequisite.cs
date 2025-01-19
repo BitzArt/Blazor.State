@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading;
 
 namespace BitzArt.Blazor;
 
@@ -89,7 +88,7 @@ public class AutomaticComponentPrerequisite : ComponentPrerequisite
     /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
     /// <param name="constraint"><inheritdoc cref="ComponentPrerequisite.Constraint" path="/summary"/></param>
     public AutomaticComponentPrerequisite(int period, Func<bool> requirement, Func<bool> constraint)
-        :this(period, requirement)
+        : this(period, requirement)
     {
         Constraint = constraint;
     }
@@ -101,7 +100,7 @@ public class AutomaticComponentPrerequisite : ComponentPrerequisite
     /// <param name="requirement"><inheritdoc cref="ComponentPrerequisite.Requirement" path="/summary"/></param>
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "In order to have a distinct comment for this constructor")]
     public AutomaticComponentPrerequisite(int period, Func<bool> requirement)
-        :base(requirement)
+        : base(requirement)
     {
         Period = period;
     }
