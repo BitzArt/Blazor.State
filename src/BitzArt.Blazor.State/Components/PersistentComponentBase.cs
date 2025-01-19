@@ -74,7 +74,7 @@ public abstract class PersistentComponentBase : StrategyRenderedComponent
     public string? StateId { get; set; }
 
     internal PersistentComponentPositionIdentifier PositionIdentifier
-        => StateId is not null ? new (StateId) : new(GetType());
+        => StateId is not null ? new(StateId) : new(GetType());
 
     private PersistentComponentRenderStrategy PersistentRenderStrategy
         => (PersistentComponentRenderStrategy)RenderStrategy!;

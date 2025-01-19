@@ -99,7 +99,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
             // Component state not found.
             return false;
         }
-        
+
         RestoreComponentState(state);
         StateInitialized = true;
 

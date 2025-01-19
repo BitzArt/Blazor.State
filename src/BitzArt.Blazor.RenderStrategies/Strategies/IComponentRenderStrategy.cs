@@ -17,7 +17,7 @@ public interface IComponentRenderStrategy
     internal IServiceProvider ServiceProvider { get; set; }
 
     internal RenderHandle Handle { get; set; }
-    
+
     internal IComponentRenderMode? AssignedRenderMode { get; }
 
     internal void Attach(RenderHandle renderHandle);
@@ -27,7 +27,7 @@ public interface IComponentRenderStrategy
     internal void StateHasChanged();
 
     internal Task CallStateHasChangedOnAsyncCompletion(Task task);
-    
+
     internal Task OnAfterRenderAsync();
 
     /// <summary>

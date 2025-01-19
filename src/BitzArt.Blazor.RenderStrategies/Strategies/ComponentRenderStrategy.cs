@@ -35,7 +35,7 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
     {
         get
         {
-            
+
             if (!_renderMode.cached)
             {
                 _renderMode = (Handle.RenderMode, true);

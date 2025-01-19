@@ -71,7 +71,7 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
         {
             await module.DisposeAsync();
         }
-        
+
 
         if (stateBase64 is null)
         {

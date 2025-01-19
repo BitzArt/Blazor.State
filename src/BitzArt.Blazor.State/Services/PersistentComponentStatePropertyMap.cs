@@ -10,7 +10,7 @@ internal class PersistentComponentStatePropertyMap(IEnumerable<Type> componentTy
     {
         if (!Components.TryGetValue(componentType, out var componentStateInfo))
             throw new InvalidOperationException($"Component {componentType.FullName} is not registered.");
-        
+
         return componentStateInfo;
     }
 }
