@@ -1,11 +1,11 @@
 export function getInnerText(id) {
 
-    console.log('getInnerText was called');
-    console.log('document', document);
+    console.debug('getInnerText was called');
+    console.debug('document', document);
 
     let element = document.getElementById(id);
 
-    console.log('element', element);
+    console.debug('element', element);
 
     if (element) {
         return element.innerText;
