@@ -12,6 +12,8 @@ public interface IComponentRenderStrategy
 
     internal bool IsReady { get; }
 
+    internal bool ShouldWaitForCompleteInitialization { get; }
+
     internal IServiceProvider ServiceProvider { get; set; }
 
     internal RenderHandle Handle { get; set; }

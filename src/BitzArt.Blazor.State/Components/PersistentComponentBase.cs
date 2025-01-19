@@ -100,6 +100,16 @@ public abstract class PersistentComponentBase : StrategyRenderedComponent
     internal Task InitializeStateInternalAsync()
         => InitializeStateAsync();
 
+    internal void OnStateRestoreFailedInternal()
+    {
+        StateRestoreFailed = true;
+        OnStateRestoreFailedEvent?.Invoke();
+    }
+
+    internal delegate void OnStateRestoreFailedHandler();
+    internal event OnStateRestoreFailedHandler? OnStateRestoreFailedEvent;
+    internal bool StateRestoreFailed = false;
+
     internal void OnStateRestoredInternal()
     {
         OnStateRestoredEvent?.Invoke();

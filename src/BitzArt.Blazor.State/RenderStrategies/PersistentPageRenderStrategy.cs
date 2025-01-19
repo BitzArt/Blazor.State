@@ -13,6 +13,8 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
 {
     protected override bool ShouldWaitForRootStateRestore => false;
 
+    public override bool ShouldWaitForCompleteInitialization => true;
+
     private bool _shouldPersistState = false;
 
     internal PersistentPageState? PageState { get; private set; }
@@ -55,7 +57,21 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
     private protected override async Task<bool> TryRestoringStateAsync()
     {
         var js = ServiceProvider.GetRequiredService<IJSRuntime>();
-        var stateBase64 = await js.InvokeAsync<string?>("getInnerText", [PageStateElementId]);
+        var module = await js.InvokeAsync<IJSObjectReference>("import", "./_content/BitzArt.Blazor.State/state.js");
+
+        string? stateBase64 = null;
+
+        await Task.Delay(100);
+
+        try
+        {
+            stateBase64 = await module.InvokeAsync<string?>("getInnerText", [PageStateElementId]);
+        }
+        finally
+        {
+            await module.DisposeAsync();
+        }
+        
 
         if (stateBase64 is null)
         {
@@ -73,6 +89,8 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
 
             ServiceProvider.GetRequiredService<ILogger<PersistentPageRenderStrategy>>()
                 .LogWarning("State container was not found on page. Initializing state as a fallback. Ignore this warning if prerendering is disabled for this page.");
+
+            PersistentComponent.OnStateRestoreFailedInternal();
 
             return false;
         }

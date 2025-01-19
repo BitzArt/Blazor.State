@@ -1,18 +1,7 @@
-﻿
-namespace BitzArt.Blazor.State.SampleApp.Client.Pages;
+﻿namespace BitzArt.Blazor.State.SampleApp.Client.Pages;
 
 public partial class CounterPage : PersistentComponentBase
 {
-    private readonly ComponentPrerequisiteCallback _callback = new();
-
-    public CounterPage()
-    {
-        // this prerequisite needs to be cancelled manually via the callback
-        Prerequisites.AddManual(() => _descendantsInitializedCount > 0, _callback, true);
-
-        // this prerequisite will automatically check for completion every 100ms
-        Prerequisites.AddAuto(100, () => _descendantsInitializedCount > 0, true);
-    }
 
     [ComponentState]
     private string _stateText = "Not Initialized";
@@ -37,6 +26,6 @@ public partial class CounterPage : PersistentComponentBase
     {
         _descendantsInitializedCount++;
 
-        if (_descendantsInitializedCount > 0) _callback.Invoke();
+        StateHasChanged();
     }
 }
