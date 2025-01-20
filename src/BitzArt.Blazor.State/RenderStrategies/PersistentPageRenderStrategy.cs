@@ -61,8 +61,6 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
 
         string? stateBase64 = null;
 
-        await Task.Delay(100);
-
         try
         {
             stateBase64 = await module.InvokeAsync<string?>("getInnerText", [PageStateElementId]);
