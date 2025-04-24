@@ -39,11 +39,37 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
             {
                 if (_shouldPersistState)
                 {
-                    innerBuilder1.OpenComponent<PageStateContainer>(4);
-                    innerBuilder1.AddAttribute(5, "ChildContent",
-                        (RenderFragment)(innerBuilder2 => base.BuildRenderTree(innerBuilder2)));
+                    CascadingValue<PageStateContainer>? pageStateContainerCascadingValue = null;
+                    PageStateContainer? pageStateContainer = null;
 
+                    // CascadingValue<PageStateContainer>
+                    innerBuilder1.OpenComponent(0, typeof(CascadingValue<PageStateContainer>));
+                    innerBuilder1.AddAttribute(1, "Value", pageStateContainer);
+                    innerBuilder1.AddAttribute(2, "ChildContent", (RenderFragment)(innerBuilder2 => base.BuildRenderTree(innerBuilder2)));
+                    innerBuilder1.AddComponentReferenceCapture(3, cascadingValue =>
+                    {
+                        pageStateContainerCascadingValue = (CascadingValue<PageStateContainer>)cascadingValue;
+                        SetCascadingValue();
+                    });
                     innerBuilder1.CloseComponent();
+
+                    // PageStateContainer
+                    innerBuilder1.OpenComponent<PageStateContainer>(4);
+                    innerBuilder1.AddAttribute(5, "ChildContent", (RenderFragment)(innerBuilder2 => { }));
+                    innerBuilder1.AddComponentReferenceCapture(6, component =>
+                    {
+                        pageStateContainer = (PageStateContainer)component;
+                        SetCascadingValue();
+                    });
+                    innerBuilder1.CloseComponent();
+
+                    void SetCascadingValue()
+                    {
+                        if (pageStateContainerCascadingValue is null || pageStateContainer is null)
+                            return;
+
+                        pageStateContainerCascadingValue!.Value = pageStateContainer;
+                    }
                 }
                 else
                 {
