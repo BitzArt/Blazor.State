@@ -33,7 +33,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         if (shouldInitializeState) await InitializeStateAsync();
 
         if (PersistentComponent.StateContainer is not null)
-            await PersistentComponent.StateContainer!.RefreshAsync();
+            await PersistentComponent.StateContainer.RefreshAsync();
     }
 
     private async Task WaitForPageStateAsync()
