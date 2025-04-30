@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
+﻿using Microsoft.AspNetCore.Components.Rendering;
 using static BitzArt.Blazor.State.Constants;
 
 namespace BitzArt.Blazor.State;
@@ -9,21 +8,18 @@ internal class PageStateContainerRenderStrategy(PageStateContainer component)
 {
     internal override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent(0, typeof(CascadingValue<PageStateContainer>));
-
-        builder.AddAttribute(1, "Value", component);
-        builder.AddAttribute(2, "ChildContent", component.ChildContent);
-
-        builder.CloseComponent();
-
         var stateElement = BuildStateElement();
-        if (stateElement is not null)
-            builder.AddMarkupContent(3, stateElement);
+        if (stateElement is null) return;
+            
+        builder.AddMarkupContent(0, stateElement);
     }
 
     private string? BuildStateElement()
     {
-        var json = component.StateRoot is not null ? component.StateComposer.SerializeState(component.StateRoot!) : null;
+        var json = component.StateRoot is not null 
+            ? component.StateComposer.SerializeState(component.StateRoot!) 
+            : null;
+
         if (json is null) return null;
 
         var stateEncoded = Convert.ToBase64String(json);

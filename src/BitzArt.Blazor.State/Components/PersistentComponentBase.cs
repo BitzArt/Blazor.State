@@ -35,7 +35,6 @@ public abstract class PersistentComponentBase : StrategyRenderedComponent
 
     private PageStateContainer? stateContainer;
 
-    [CascadingParameter]
     internal PageStateContainer? StateContainer
     {
         get => stateContainer;
