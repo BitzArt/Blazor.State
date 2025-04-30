@@ -31,18 +31,51 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
         PersistentComponent.IsStateRoot = true;
 
         builder.OpenComponent<CascadingValue<PersistentComponentBase>>(0);
+
         builder.AddAttribute(1, "Name", "StateRoot");
         builder.AddAttribute(2, "Value", PersistentComponent);
         builder.AddAttribute(3, "ChildContent",
-            (RenderFragment)(innerBuilder =>
+            (RenderFragment)(innerBuilder1 =>
             {
                 if (_shouldPersistState)
                 {
-                    innerBuilder.OpenComponent<PageStateContainer>(0);
-                    innerBuilder.CloseComponent(); 
-                }
+                    CascadingValue<PageStateContainer>? pageStateContainerCascadingValue = null;
+                    PageStateContainer? pageStateContainer = null;
 
-                base.BuildRenderTree(innerBuilder);
+                    innerBuilder1.OpenComponent(0, typeof(CascadingValue<PageStateContainer>));
+                    innerBuilder1.AddAttribute(1, "Value", pageStateContainer);
+                    innerBuilder1.AddAttribute(2, "ChildContent", (RenderFragment)(innerBuilder2 =>
+                    {
+                        if (pageStateContainer is null) return;
+                        base.BuildRenderTree(innerBuilder2);
+                    }));
+                    innerBuilder1.AddComponentReferenceCapture(3, (cascadingValue) =>
+                    {
+                        pageStateContainerCascadingValue = (CascadingValue<PageStateContainer>)cascadingValue;
+                        SetCascadingValue();
+                    });
+                    innerBuilder1.CloseComponent();
+
+                    innerBuilder1.OpenComponent<PageStateContainer>(4);
+                    innerBuilder1.AddComponentReferenceCapture(5, component =>
+                    {
+                        pageStateContainer = (PageStateContainer)component;
+                        SetCascadingValue();
+                    });
+                    innerBuilder1.CloseComponent();
+
+                    void SetCascadingValue()
+                    {
+                        if (pageStateContainerCascadingValue is null || pageStateContainer is null)
+                            return;
+
+                        pageStateContainerCascadingValue.Value = pageStateContainer;
+                    }
+                }
+                else
+                {
+                    base.BuildRenderTree(innerBuilder1);
+                }
             }));
 
         builder.CloseComponent();
