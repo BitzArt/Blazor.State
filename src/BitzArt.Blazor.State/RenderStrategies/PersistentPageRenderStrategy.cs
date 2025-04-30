@@ -31,23 +31,18 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
         PersistentComponent.IsStateRoot = true;
 
         builder.OpenComponent<CascadingValue<PersistentComponentBase>>(0);
-
         builder.AddAttribute(1, "Name", "StateRoot");
         builder.AddAttribute(2, "Value", PersistentComponent);
         builder.AddAttribute(3, "ChildContent",
-            (RenderFragment)(innerBuilder1 =>
+            (RenderFragment)(innerBuilder =>
             {
                 if (_shouldPersistState)
                 {
-                    innerBuilder1.OpenComponent<PageStateContainer>(0);
-                    innerBuilder1.CloseComponent();
+                    innerBuilder.OpenComponent<PageStateContainer>(0);
+                    innerBuilder.CloseComponent(); 
+                }
 
-                    base.BuildRenderTree(innerBuilder1);
-                }
-                else
-                {
-                    base.BuildRenderTree(innerBuilder1);
-                }
+                base.BuildRenderTree(innerBuilder);
             }));
 
         builder.CloseComponent();
