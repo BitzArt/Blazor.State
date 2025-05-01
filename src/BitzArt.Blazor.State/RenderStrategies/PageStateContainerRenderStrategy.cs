@@ -9,8 +9,9 @@ internal class PageStateContainerRenderStrategy(PageStateContainer component)
     internal override void BuildRenderTree(RenderTreeBuilder builder)
     {
         var stateElement = BuildStateElement();
-        if (stateElement is not null)
-            builder.AddMarkupContent(0, stateElement);
+        if (stateElement is null) return;
+
+        builder.AddMarkupContent(0, stateElement);
     }
 
     private string? BuildStateElement()
