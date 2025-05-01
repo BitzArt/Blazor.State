@@ -19,7 +19,6 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
 
     internal PersistentPageState? PageState { get; private set; }
 
-    private CascadingValue<PageStateContainer>? _pageStateContainerCascadingValue;
     private PageStateContainer? _pageStateContainer;
 
     public override void Attach(RenderHandle renderHandle)
@@ -46,31 +45,16 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
                     innerBuilder1.AddAttribute(1, "Value", _pageStateContainer);
                     innerBuilder1.AddAttribute(2, "ChildContent", (RenderFragment)(innerBuilder2 =>
                     {
-                        if (_pageStateContainer is null) return;
                         base.BuildRenderTree(innerBuilder2);
                     }));
-                    innerBuilder1.AddComponentReferenceCapture(3, reference =>
-                    {
-                        _pageStateContainerCascadingValue = (CascadingValue<PageStateContainer>)reference;
-                        SetCascadingValue();
-                    });
                     innerBuilder1.CloseComponent();
 
-                    innerBuilder1.OpenComponent<PageStateContainer>(4);
-                    innerBuilder1.AddComponentReferenceCapture(5, reference =>
+                    innerBuilder1.OpenComponent<PageStateContainer>(3);
+                    innerBuilder1.AddComponentReferenceCapture(4, reference =>
                     {
                         _pageStateContainer = (PageStateContainer)reference;
-                        SetCascadingValue();
                     });
                     innerBuilder1.CloseComponent();
-
-                    void SetCascadingValue()
-                    {
-                        if (_pageStateContainerCascadingValue is null || _pageStateContainer is null)
-                            return;
-
-                        _pageStateContainerCascadingValue.Value = _pageStateContainer;
-                    }
                 }
                 else
                 {
