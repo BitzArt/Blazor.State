@@ -53,8 +53,8 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
                     });
                     innerBuilder1.CloseComponent();
 
-                    innerBuilder1.OpenComponent<PageStateContainer>(3);
-                    innerBuilder1.AddComponentReferenceCapture(4, reference =>
+                    innerBuilder1.OpenComponent<PageStateContainer>(4);
+                    innerBuilder1.AddComponentReferenceCapture(5, reference =>
                     {
                         _pageStateContainer = (PageStateContainer)reference;
                         SetCascadingValue();
