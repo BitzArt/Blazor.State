@@ -31,8 +31,6 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
         await base.OnInitializedAsync();
 
         if (shouldInitializeState) await InitializeStateAsync();
-
-        if (isInteractive) return;
         
         if (PersistentComponent.StateContainer is null) return;    
         await PersistentComponent.StateContainer.RefreshAsync();
