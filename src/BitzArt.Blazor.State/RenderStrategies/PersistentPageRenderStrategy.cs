@@ -49,10 +49,9 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
 
                     // PageStateContainer
                     innerBuilder1.OpenComponent<PageStateContainer>(3);
-                    innerBuilder1.AddAttribute(4, "ChildContent", (RenderFragment)(innerBuilder2 => { }));
-                    innerBuilder1.AddComponentReferenceCapture(5, component =>
+                    innerBuilder1.AddComponentReferenceCapture(4, reference =>
                     {
-                        _pageStateContainer = (PageStateContainer)component;
+                        _pageStateContainer = (PageStateContainer)reference;
                     });
                     innerBuilder1.CloseComponent();
                 }
