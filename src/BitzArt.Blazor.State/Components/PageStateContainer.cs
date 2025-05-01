@@ -16,12 +16,6 @@ internal class PageStateContainer : StrategyRenderedComponent
 
     internal bool HasState { get; set; } = false;
 
-    /// <summary>
-    /// Child content.
-    /// </summary>
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
     [Inject]
     internal PersistentComponentStateComposer StateComposer { get; set; } = null!;
 
