@@ -9,11 +9,6 @@ namespace BitzArt.Blazor;
 public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender, IHandleEvent
 {
     /// <summary>
-    /// A collection of prerequisites that need to be met before the component lifecycle starts.
-    /// </summary>
-    protected internal ComponentPrerequisiteCollection Prerequisites { get; } = new();
-
-    /// <summary>
     /// Indicates whether the component has completed own initialization (<see cref="Initialize"/> and <see cref="InitializeAsync"/>).
     /// </summary>
     protected internal bool IsInitialized => RenderStrategy!.IsInitialized;

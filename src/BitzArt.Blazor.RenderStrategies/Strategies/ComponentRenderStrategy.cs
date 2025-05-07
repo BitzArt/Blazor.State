@@ -125,7 +125,6 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
 
     private protected virtual async Task InitializeAsync()
     {
-        await Component.Prerequisites.EnsureBeforeInitializationAsync();
         Component.InitializeInternal();
         await Component.InitializeAsyncInternal();
         IsInitialized = true;
@@ -133,7 +132,6 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
 
     private protected virtual async Task OnInitializedAsync()
     {
-        await Component.Prerequisites.EnsureAfterInitializationAsync();
         Component.OnInitializedInternal();
         await Component.OnInitializedInternalAsync();
         IsReady = true;
