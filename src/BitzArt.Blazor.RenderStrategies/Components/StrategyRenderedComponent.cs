@@ -9,11 +9,6 @@ namespace BitzArt.Blazor;
 public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender, IHandleEvent
 {
     /// <summary>
-    /// A collection of prerequisites that need to be met before the component lifecycle starts.
-    /// </summary>
-    protected internal ComponentPrerequisiteCollection Prerequisites { get; } = new();
-
-    /// <summary>
     /// Indicates whether the component has completed own initialization (<see cref="Initialize"/> and <see cref="InitializeAsync"/>).
     /// </summary>
     protected internal bool IsInitialized => RenderStrategy!.IsInitialized;
@@ -112,10 +107,14 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     /// </summary>
     protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
 
+    private const string _initializeObsoleteMessage = "Initialize() and InitializeAsync() are to be removed in one of the future releases for the sake of uniformity " +
+        "with Blazor default component lifecycle. Instead, use OnInitialized() and OnInitializedAsync() as you would normally do in Blazor.";
+
     /// <summary>
     /// Method invoked when the component is ready to start, having received its
     /// initial parameters from its parent in the render tree.
     /// </summary>
+    [Obsolete(_initializeObsoleteMessage)]
     protected virtual void Initialize()
     {
     }
@@ -127,6 +126,7 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     /// Method invoked when the component is ready to start, having received its
     /// initial parameters from its parent in the render tree.
     /// </summary>
+    [Obsolete(_initializeObsoleteMessage)]
     protected virtual Task InitializeAsync()
         => Task.CompletedTask;
 

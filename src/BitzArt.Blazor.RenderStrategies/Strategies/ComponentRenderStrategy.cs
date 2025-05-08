@@ -107,10 +107,9 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
 
     private protected async Task InitAndSetParametersAsync()
     {
-        await Component.Prerequisites.EnsureBeforeInitializationAsync();
-        Component.InitializeInternal();
-        await Component.InitializeAsyncInternal();
-        IsInitialized = true;
+        await InitializeAsync();
+
+        Component.OnInitializedInternal();
 
         var task = OnInitializedAsync();
 
@@ -126,10 +125,15 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
         await CallOnParametersSetAsync();
     }
 
+    private protected virtual async Task InitializeAsync()
+    {
+        Component.InitializeInternal();
+        await Component.InitializeAsyncInternal();
+        IsInitialized = true;
+    }
+
     private protected virtual async Task OnInitializedAsync()
     {
-        await Component.Prerequisites.EnsureAfterInitializationAsync();
-        Component.OnInitializedInternal();
         await Component.OnInitializedInternalAsync();
         IsReady = true;
     }

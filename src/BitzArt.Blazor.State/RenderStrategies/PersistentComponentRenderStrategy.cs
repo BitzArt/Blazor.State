@@ -16,7 +16,7 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
     protected PersistentComponentBase PersistentComponent { get; private set; } = component;
     protected virtual bool ShouldWaitForRootStateRestore => true;
 
-    private protected override async Task OnInitializedAsync()
+    private protected override async Task InitializeAsync()
     {
         var isInteractive = Handle.RendererInfo.IsInteractive;
 
@@ -28,12 +28,19 @@ internal class PersistentComponentRenderStrategy(PersistentComponentBase compone
             shouldInitializeState = !restored;
         }
 
-        await base.OnInitializedAsync();
-
         if (shouldInitializeState) await InitializeStateAsync();
 
-        if (PersistentComponent.StateContainer is null) return;
-        await PersistentComponent.StateContainer.RefreshAsync();
+        await base.InitializeAsync();
+    }
+
+    private protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (PersistentComponent.StateContainer is not null)
+        {
+            await PersistentComponent.StateContainer.RefreshAsync();
+        }
     }
 
     private async Task WaitForPageStateAsync()
