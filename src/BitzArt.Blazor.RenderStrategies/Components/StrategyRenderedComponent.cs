@@ -107,10 +107,14 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     /// </summary>
     protected ResourceAssetCollection Assets => RenderStrategy!.Handle.Assets;
 
+    private const string _initializeObsoleteMessage = "Initialize() and InitializeAsync() are to be removed in one of the future releases for the sake of uniformity " +
+        "with Blazor default component lifecycle. Instead, use OnInitialized() and OnInitializedAsync() as you would normally do in Blazor.";
+
     /// <summary>
     /// Method invoked when the component is ready to start, having received its
     /// initial parameters from its parent in the render tree.
     /// </summary>
+    [Obsolete(_initializeObsoleteMessage)]
     protected virtual void Initialize()
     {
     }
@@ -122,6 +126,7 @@ public abstract class StrategyRenderedComponent : IComponent, IHandleAfterRender
     /// Method invoked when the component is ready to start, having received its
     /// initial parameters from its parent in the render tree.
     /// </summary>
+    [Obsolete(_initializeObsoleteMessage)]
     protected virtual Task InitializeAsync()
         => Task.CompletedTask;
 

@@ -13,8 +13,6 @@ internal class PersistentPageRenderStrategy(PersistentComponentBase component)
 {
     protected override bool ShouldWaitForRootStateRestore => false;
 
-    public override bool ShouldWaitForCompleteInitialization => true;
-
     private bool _shouldPersistState = false;
 
     internal PersistentPageState? PageState { get; private set; }

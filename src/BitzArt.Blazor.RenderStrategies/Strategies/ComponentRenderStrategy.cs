@@ -109,6 +109,8 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
     {
         await InitializeAsync();
 
+        Component.OnInitializedInternal();
+
         var task = OnInitializedAsync();
 
         if (task.Status != TaskStatus.RanToCompletion && task.Status != TaskStatus.Canceled)
@@ -132,7 +134,6 @@ internal class ComponentRenderStrategy : IComponentRenderStrategy
 
     private protected virtual async Task OnInitializedAsync()
     {
-        Component.OnInitializedInternal();
         await Component.OnInitializedInternalAsync();
         IsReady = true;
     }
