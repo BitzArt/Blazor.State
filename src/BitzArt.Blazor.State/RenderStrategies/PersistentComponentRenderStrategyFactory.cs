@@ -18,8 +18,8 @@ internal class PersistentComponentRenderStrategyFactory
         for (var i = 0; i < components.Count; i++)
         {
             var component = components[i];
-            var routeAttribute = component.GetCustomAttribute<RouteAttribute>();
-            if (routeAttribute is null) continue;
+            var routeAttributes = component.GetCustomAttributes<RouteAttribute>();
+            if (!routeAttributes.Any()) continue;
 
             pages.Add(component);
             components.RemoveAt(i);
